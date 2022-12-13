@@ -6,12 +6,15 @@ import 'package:college_app/app/widgets/gridCard.dart';
 import 'package:college_app/app/widgets/home_appBar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import '../controllers/teacher_home_controller.dart';
 
 class TeacherHomeView extends GetView<TeacherHomeController> {
   const TeacherHomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final saveNameLocaly = GetStorage();
+    saveNameLocaly.read('name') ?? saveNameLocaly.write('name', Get.arguments);
     return Scaffold(
       drawer: TeacherDrawer(),
       key: controller.scaffoldKey,
@@ -48,7 +51,14 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                     borderRadius: BorderRadius.circular(18.0),
                   ),
                   clipBehavior: Clip.antiAlias,
-                  child: CommonStyle.commonText(label: 'titleTeahAppBar'),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CommonStyle.commonText(label: 'titleTeahAppBar'),
+                      CommonStyle.commonText(
+                          label: saveNameLocaly.read('name')),
+                    ],
+                  ),
                 ),
                 GridView(
                   shrinkWrap: true,

@@ -35,7 +35,7 @@ Map<String, String> ar = {
   "validateIdMessage": "الرقم الجامعي غير صالح!",
   /////////////////////////////////////////////////
   // teacher_home
-  "titleTeahAppBar": "مرحباً بك,\nأستاذ: الصادق",
+  "titleTeahAppBar": "مرحباً بك دكتور \n",
   "subjects": "المواد",
   "lessons": "الدروس",
   "tables": "الجداول الدراسية",

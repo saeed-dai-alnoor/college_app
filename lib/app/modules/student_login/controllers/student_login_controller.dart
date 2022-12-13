@@ -1,7 +1,6 @@
 // ignore_for_file: unnecessary_overrides, prefer_typing_uninitialized_variables
 import 'dart:convert' as convert;
 
-import 'package:college_app/app/controllers/auth_controller.dart';
 import 'package:college_app/app/core/themes/custom_colors.dart';
 import 'package:college_app/app/data/providers/student_provider.dart';
 import 'package:college_app/app/routes/app_pages.dart';
@@ -15,7 +14,6 @@ class StudentLoginController extends GetxController {
   late TextEditingController idConrtoller;
   late TextEditingController mobileConrtoller;
   late FocusNode phoneFocusNode;
-  final AuthController authController = Get.find<AuthController>();
   final RxBool _isLoading = false.obs;
   bool get isLoading => _isLoading.value;
   var id = '';
@@ -26,8 +24,6 @@ class StudentLoginController extends GetxController {
     super.onInit();
     idConrtoller = TextEditingController();
     mobileConrtoller = TextEditingController();
-    idConrtoller.text = '4';
-    mobileConrtoller.text = '0927824940';
     phoneFocusNode = FocusNode();
   }
 
@@ -59,22 +55,24 @@ class StudentLoginController extends GetxController {
       'phone': mobileConrtoller.text.trim(),
     };
     var response =
-        await StudentProvider().postStudentData(data, '/student-login');
+        await StudentProvider().postStudentData(data, '/students/login');
     var jsonResponse =
         convert.jsonDecode(response.body) as Map<String, dynamic>;
     // if (_networkController.connectionStatus.value == 0) {
     //   Get.snackbar('Network Problem', 'No Internet Connection');
     // }
-    if (jsonResponse['status'] == 'true') {
+    if (jsonResponse['success'] == 1) {
       _isLoading.value = false;
       getStorage.write('id', 6);
+      // print(jsonResponse['message']);
+      // print(jsonResponse['token']);
       Get.offAllNamed(Routes.STUDENT_HOME,
-          arguments: jsonResponse['result'][0]['name']);
+          arguments: jsonResponse['data']['name']);
     } else {
       _isLoading.value = false;
       Get.defaultDialog(
         title: 'Error',
-        content: Text("${jsonResponse['result']}"),
+        content: Text("${jsonResponse['data']}"),
         barrierDismissible: true,
         textCancel: 'Try Again',
         cancelTextColor: Colors.black,

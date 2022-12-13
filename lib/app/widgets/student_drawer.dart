@@ -68,6 +68,7 @@ class StudentDrawer extends StatelessWidget {
               icon: Icons.logout,
               label: 'logout',
               onpressed: () {
+                getStorge.erase();
                 getStorge.write('id', 1);
                 Get.offNamed(
                   Routes.USER_KIND,

@@ -35,7 +35,7 @@ Map<String, String> en = {
   "validateIdMessage": "Provide Valid Id Number!",
   /////////////////////////////////////////////////
   // teacher_home
-  "titleTeahAppBar": "Welcome,\n Mr: Elsaddig",
+  "titleTeahAppBar": "Welcome, Mr. \n",
   "subjects": "Subjects",
   "lessons": "Lessons",
   "tables": "Lessons Schedules",
