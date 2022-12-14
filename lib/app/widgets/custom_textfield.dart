@@ -34,7 +34,6 @@ class CustomTextField extends StatelessWidget {
   final getStorage = GetStorage();
   @override
   Widget build(BuildContext context) {
-    // final languageController = Get.find<LanguagesTypeController>();
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 40.0),
       child: Theme(

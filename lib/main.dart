@@ -18,10 +18,9 @@ void main() async {
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
       translations: Languages(),
-      locale:
-          getStorage.read('lang') == 'ar' || getStorage.read('lsang') == null
-              ? const Locale('ar', 'SA')
-              : const Locale('en', 'US'),
+      locale: getStorage.read('lang') == 'ar' || getStorage.read('lang') == null
+          ? const Locale('ar', 'SA')
+          : const Locale('en', 'US'),
       fallbackLocale: const Locale('ar', 'SA'),
       theme: ThemeData(
         unselectedWidgetColor: Colors.white,

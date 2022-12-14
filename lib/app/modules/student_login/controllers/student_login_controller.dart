@@ -1,8 +1,4 @@
 // ignore_for_file: unnecessary_overrides, prefer_typing_uninitialized_variables
-import 'dart:convert' as convert;
-
-import 'package:college_app/app/core/themes/custom_colors.dart';
-import 'package:college_app/app/data/providers/student_provider.dart';
 import 'package:college_app/app/routes/app_pages.dart';
 import 'package:college_app/app/widgets/common_methods.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +10,10 @@ class StudentLoginController extends GetxController {
   late TextEditingController idConrtoller;
   late TextEditingController mobileConrtoller;
   late FocusNode phoneFocusNode;
-  final RxBool _isLoading = false.obs;
-  bool get isLoading => _isLoading.value;
+  
+  RxBool isLoad = false.obs;
+  bool get isLoading => isLoad.value;
+  
   var id = '';
   var phone = '';
   final getStorage = GetStorage();
@@ -48,44 +46,21 @@ class StudentLoginController extends GetxController {
     FocusScope.of(context).requestFocus(phoneFocusNode);
   }
 
-  loginApi() async {
-    _isLoading.value = true;
-    var data = {
-      'student_id': idConrtoller.text.trim(),
-      'phone': mobileConrtoller.text.trim(),
-    };
-    var response =
-        await StudentProvider().postStudentData(data, '/students/login');
-    var jsonResponse =
-        convert.jsonDecode(response.body) as Map<String, dynamic>;
-    // if (_networkController.connectionStatus.value == 0) {
-    //   Get.snackbar('Network Problem', 'No Internet Connection');
-    // }
-    if (jsonResponse['success'] == 1) {
-      _isLoading.value = false;
-      getStorage.write('id', 6);
-      // print(jsonResponse['message']);
-      // print(jsonResponse['token']);
-      Get.offAllNamed(Routes.STUDENT_HOME,
-          arguments: jsonResponse['data']['name']);
-    } else {
-      _isLoading.value = false;
-      Get.defaultDialog(
-        title: 'Error',
-        content: Text("${jsonResponse['data']}"),
-        barrierDismissible: true,
-        textCancel: 'Try Again',
-        cancelTextColor: Colors.black,
-        buttonColor: CustomColors.primColor,
-      );
-    }
-  }
-
   void checkSignIn() async {
     if (!loginFormKey.currentState!.validate()) {
       return;
     } else {
-      loginApi();
+      // loginApi();
+      CommonMethods.loginApi(
+        firstApiField: 'student_id',
+        secondApiField: 'phone',
+        firstFlutterField: idConrtoller.text.trim(),
+        secondFlutterField: mobileConrtoller.text.trim(),
+        idStorage: 6,
+        urlPath: '/students/login',
+        isLoad: isLoad,
+        newRouteName: Routes.STUDENT_HOME,
+      );
     }
     loginFormKey.currentState!.save();
   }

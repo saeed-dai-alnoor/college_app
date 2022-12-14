@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:college_app/app/data/services/http_api.dart';
 import 'package:http/http.dart' as http;
 
-class StudentProvider {
-  postStudentData(data, apiUrl) async {
+class UserProvider {
+  static postUserData(data, apiUrl) async {
     var fullUrl = HttpApi.baseUrl + apiUrl;
     var client = http.Client();
     try {
