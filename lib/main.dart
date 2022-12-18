@@ -1,3 +1,4 @@
+import 'package:college_app/app/controllers/auth_controller.dart';
 import 'package:college_app/app/core/themes/custom_colors.dart';
 import 'package:college_app/app/core/lang/languages.dart';
 import 'package:college_app/app/modules/network/bindings/network_binding.dart';
@@ -14,7 +15,7 @@ void main() async {
     GetMaterialApp(
       title: "College App",
       initialRoute: AppPages.INITIAL,
-      initialBinding: NetworkBinding(),
+      // initialBinding: NetworkBinding(),
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
       translations: Languages(),

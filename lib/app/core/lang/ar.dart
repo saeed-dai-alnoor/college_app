@@ -61,6 +61,7 @@ Map<String, String> ar = {
   "level5": "الفرقة الخامسة",
   "changeBand": "إختيار فرقة أخرى",
   "name": "اﻹسـم",
+  "id": " الرقم الجامعي",
   // subjects
   "chooselevAndSems": "إختر الفرقة والسمستر",
   "chooseSemester": "إختر السمستر",

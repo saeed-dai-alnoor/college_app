@@ -184,7 +184,7 @@ class CommonMethods {
       secondApiField: secondFlutterField,
     };
     var response = await UserProvider.postUserData(
-        data, urlPath); // urlPath = '/students/login'
+        data, urlPath);
     var jsonResponse =
         convert.jsonDecode(response.body) as Map<String, dynamic>;
     // if (_networkController.connectionStatus.value == 0) {
@@ -192,10 +192,8 @@ class CommonMethods {
     // }
     if (jsonResponse['success'] == 1) {
       isLoad.value = false;
-      getStorage.write('id', idStorage); // id = 6
-      // print(jsonResponse['message']);
-      // print(jsonResponse['token']);
-      Get.offAllNamed(newRouteName, // Routes.STUDENT_HOME
+      getStorage.write('id', idStorage);
+      Get.offAllNamed(newRouteName,
           arguments: jsonResponse['data']['name']);
     } else {
       isLoad.value = false;

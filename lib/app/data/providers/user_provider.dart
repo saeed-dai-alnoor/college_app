@@ -1,20 +1,14 @@
 import 'dart:convert';
-import 'package:college_app/app/data/services/http_api.dart';
-import 'package:http/http.dart' as http;
+import 'package:college_app/app/data/services/remote_services.dart';
 
 class UserProvider {
   static postUserData(data, apiUrl) async {
-    var fullUrl = HttpApi.baseUrl + apiUrl;
-    var client = http.Client();
-    try {
-      var response = await client.post(
+    var fullUrl = RemoteServices.baseUrl + apiUrl;
+      var response = await RemoteServices.client.post(
         Uri.parse(fullUrl),
         body: jsonEncode(data),
-        headers: HttpApi.setHeader(),
+        headers: RemoteServices.setHeader(),
       );
       return response;
-    } finally {
-      client.close();
-    }
   }
 }

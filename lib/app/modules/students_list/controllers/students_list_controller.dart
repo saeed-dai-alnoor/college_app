@@ -1,4 +1,7 @@
-// ignore_for_file: unnecessary_overrides
+// ignore_for_file: unnecessary_overrides, invalid_use_of_protected_member
+import 'package:college_app/app/core/themes/common_style.dart';
+import 'package:college_app/app/data/models/student.dart';
+import 'package:college_app/app/data/models/student_provider.dart';
 import 'package:college_app/app/modules/level_type/controllers/level_type_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,14 +10,22 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 class StudentsListController extends GetxController {
   final levelController = Get.find<LevelTypeController>();
   TextEditingController searchController = TextEditingController();
-  List<Employee> employees = <Employee>[];
-  late EmployeeDataSource employeeDataSource;
+  RxBool isLoad = false.obs;
+  bool get isLoading => isLoad.value;
+  var studentList = <Datum>[].obs;
+  fetchStudents() async {
+    isLoad.value = true;
+    List<Datum>? students = await StudentProvider.getStudents();
+    if (students != null) {
+      isLoad.value = false;
+      studentList.value = students;
+    }
+  }
 
   @override
   void onInit() {
     super.onInit();
-    employees = getEmployeeData();
-    employeeDataSource = EmployeeDataSource(employeesData: employees);
+    fetchStudents();
   }
 
   @override
@@ -26,81 +37,80 @@ class StudentsListController extends GetxController {
   void onClose() {
     super.onClose();
   }
-}
 
-////////////////////////////////////////////////////////////////
-class Employee {
-  Employee(this.id, this.name);
-  final int id;
-  final String name;
-}
-
-List<Employee> getEmployeeData() {
-  return [
-    Employee(10001, 'Saeed Dai Alnoor Aldodo'),
-    Employee(10002, 'Muhammad Hisham Nasser'),
-    Employee(10003, 'Abdul Rahman Ibrahim Ahmed'),
-    Employee(10004, 'Wahib Ahmed Mohammed'),
-    Employee(10005, 'Saeed Dai Alnoor Aldodo'),
-    Employee(10006, 'Muhammad Hisham Nasser Ali'),
-    Employee(10007, 'Abdul Rahman Ibrahim Ahmed'),
-    Employee(10008, 'Wahib Ahmed Mohammed Al-Hassan'),
-    Employee(10009, 'Saeed Dai Alnoor Aldodo'),
-    Employee(10010, 'Muhammad Hisham Nasser Ali'),
-    Employee(10011, 'Abdul Rahman Ibrahim Ahmed'),
-    Employee(10012, 'Wahib Ahmed Mohammed Al-Hassan'),
-    Employee(10001, 'Saeed Dai Alnoor Aldodo'),
-    Employee(10002, 'Muhammad Hisham Nasser Ali'),
-    Employee(10003, 'Abdul Rahman Ibrahim Ahmed'),
-    Employee(10004, 'Wahib Ahmed Mohammed Al-Hassan'),
-  ];
-}
-
-class EmployeeDataSource extends DataGridSource {
-  EmployeeDataSource({required List<Employee> employeesData}) {
-    employeeData = employeesData
-        .map<DataGridRow>(
-          (e) => DataGridRow(
-            cells: [
-              DataGridCell<int>(columnName: 'id', value: e.id),
-              DataGridCell<String>(columnName: 'name', value: e.name),
-            ],
-          ),
-        )
-        .toList();
+  Future<StudentDataGridSource> getStudentSource() async {
+    return StudentDataGridSource(studentList.value);
   }
-  List<DataGridRow> employeeData = [];
-  @override
-  List<DataGridRow> get rows => employeeData;
+
+  List<GridColumn> getColumns() {
+    return <GridColumn>[
+      GridColumn(
+        columnName: 'ID',
+        width: 90.0,
+        label: Container(
+          padding: const EdgeInsets.all(8),
+          alignment: Alignment.centerRight,
+          child: CommonStyle.commonText(
+            label: 'id',
+            size: 16.0,
+          ),
+        ),
+      ),
+      GridColumn(
+        columnName: 'name',
+        width: 280.0,
+        label: Container(
+          padding: const EdgeInsets.all(8),
+          alignment: Alignment.centerRight,
+          child: CommonStyle.commonText(
+            label: 'name',
+            size: 17.0,
+          ),
+        ),
+      ),
+    ];
+  }
+}
+class StudentDataGridSource extends DataGridSource {
+  StudentDataGridSource(this.data) {
+    buildDataGridRow();
+  }
+  late List<Datum>? data;
+  List<DataGridRow> dataGridRows = <DataGridRow>[].obs;
+
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
-    // Color getRowBackgroundColor() {
-    //   final int index = effectiveRows.indexOf(row);
-    //   if (index % 2 != 0) {
-    //     return const Color(0xff6B6C84);
-    //   } else {
-    //     return Colors.white;
-    //   }
-    // }
     return DataGridRowAdapter(
-      cells: row.getCells().map<Widget>(
-        (employeeData) {
-          return Container(
-            alignment: (employeeData.columnName == 'id' ||
-                    employeeData.columnName == 'name')
-                ? Alignment.center
-                : Alignment.center,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 2.0,
-              vertical: 10.0,
-            ),
-            child: Text(
-              employeeData.value.toString(),
-              overflow: TextOverflow.ellipsis,
-            ),
-          );
-        },
-      ).toList(),
+      cells: [
+        Container(
+          alignment: Alignment.centerRight,
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            row.getCells()[0].value.toString(),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        Container(
+          alignment: Alignment.centerRight,
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            row.getCells()[1].value.toString(),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
     );
+  }
+
+  @override
+  List<DataGridRow> get rows => dataGridRows;
+
+  void buildDataGridRow() {
+    dataGridRows = data!.map<DataGridRow>((dataGridRows) {
+      return DataGridRow(cells: [
+        DataGridCell(columnName: 'id', value: dataGridRows.studentId),
+        DataGridCell(columnName: 'name', value: dataGridRows.name),
+      ]);
+    }).toList(growable: false);
   }
 }
