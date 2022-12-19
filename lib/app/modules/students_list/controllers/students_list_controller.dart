@@ -15,7 +15,8 @@ class StudentsListController extends GetxController {
   var studentList = <Datum>[].obs;
   fetchStudents() async {
     isLoad.value = true;
-    List<Datum>? students = await StudentProvider.getStudents();
+    // List<Datum>? students = await StudentProvider.getStudents();
+    List<Datum>? students = await StudentProvider.getStudentsByLevel();
     if (students != null) {
       isLoad.value = false;
       studentList.value = students;

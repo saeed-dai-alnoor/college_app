@@ -53,9 +53,6 @@ class LevelTypeView extends GetView<LevelTypeController> {
           groupValue: controller.defaultLevel.value,
           onChanged: (String? val) {
             controller.defaultLevel.value = val!;
-
-            // Get.updateLocale(
-            //     Locale(controller.defaultLevel.value, 'SA'));
           },
         ),
       ),
