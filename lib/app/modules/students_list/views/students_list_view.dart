@@ -68,35 +68,41 @@ class StudentsListView extends GetView<StudentsListController> {
                     size: 18.0,
                     color: Colors.black,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: FutureBuilder(
-                      future: controller.getStudentSource(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<dynamic> snapshot) {
-                        return snapshot.hasData
-                            ? SfDataGridTheme(
-                                data: SfDataGridThemeData(
-                                  headerColor: CustomColors.primColor,
-                                  gridLineColor:
-                                      const Color.fromRGBO(0, 0, 0, 0.26),
-                                  gridLineStrokeWidth: 2.0,
+                  FutureBuilder(
+                    future: controller.getStudentSource(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<dynamic> snapshot) {
+                      return snapshot.hasData
+                          ? SfDataGridTheme(
+                              data: SfDataGridThemeData(
+                                headerColor: CustomColors.primColor,
+                                gridLineColor:
+                                    const Color.fromRGBO(0, 0, 0, 0.26),
+                                gridLineStrokeWidth: 2.0,
+                              ),
+                              child: Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Stack(
+                                    children: <Widget>[
+                                      SfDataGrid(
+                                        shrinkWrapRows: true,
+                                        allowPullToRefresh: true,
+                                        columnWidthMode: ColumnWidthMode.fill,
+                                        gridLinesVisibility:
+                                            GridLinesVisibility.both,
+                                        headerGridLinesVisibility:
+                                            GridLinesVisibility.both,
+                                        source: snapshot.data,
+                                        columns: controller.getColumns(),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                child: SfDataGrid(
-                                  shrinkWrapRows: true,
-                                  allowColumnsResizing: true,
-                                  allowPullToRefresh: true,
-                                  columnWidthMode: ColumnWidthMode.fill,
-                                  gridLinesVisibility: GridLinesVisibility.both,
-                                  headerGridLinesVisibility:
-                                      GridLinesVisibility.both,
-                                  source: snapshot.data,
-                                  columns: controller.getColumns(),
-                                ),
-                              )
-                            : Container();
-                      },
-                    ),
+                              ),
+                            )
+                          : Container();
+                    },
                   ),
                 ],
               ),

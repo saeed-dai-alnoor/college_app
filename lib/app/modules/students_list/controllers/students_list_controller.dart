@@ -64,7 +64,7 @@ class StudentsListController extends GetxController {
           alignment: Alignment.centerRight,
           child: CommonStyle.commonText(
             label: 'name',
-            size: 17.0,
+            size: 19.0,
           ),
         ),
       ),
@@ -82,32 +82,24 @@ class StudentDataGridSource extends DataGridSource {
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
-      cells: [
+      cells: <Widget>[
         Container(
           alignment: Alignment.centerRight,
           padding: const EdgeInsets.all(8.0),
           child: CommonStyle.commonText(
             label: row.getCells()[0].value,
-            size: 15,
+            size: 18.0,
             color: Colors.black,
           ),
-          // child: Text(
-          //   row.getCells()[0].value,
-          //   overflow: TextOverflow.ellipsis,
-          // ),
         ),
         Container(
           alignment: Alignment.centerRight,
           padding: const EdgeInsets.all(8.0),
           child: CommonStyle.commonText(
             label: row.getCells()[1].value,
-            size: 15,
+            size: 18.0,
             color: Colors.black,
           ),
-          // child: Text(
-          //   row.getCells()[1].value,
-          //   overflow: TextOverflow.ellipsis,
-          // ),
         ),
       ],
     );
@@ -118,10 +110,13 @@ class StudentDataGridSource extends DataGridSource {
 
   void buildDataGridRow() {
     dataGridRows = data!.map<DataGridRow>((dataGridRows) {
-      return DataGridRow(cells: [
-        DataGridCell(columnName: 'id', value: dataGridRows.studentId),
-        DataGridCell(columnName: 'name', value: dataGridRows.name),
-      ]);
+      return DataGridRow(
+        cells: <DataGridCell>[
+          DataGridCell(
+              columnName: 'id', value: dataGridRows.studentId.toString()),
+          DataGridCell(columnName: 'name', value: dataGridRows.name),
+        ],
+      );
     }).toList(growable: false);
   }
 }
