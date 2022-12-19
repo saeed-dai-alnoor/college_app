@@ -1,6 +1,5 @@
 import 'package:college_app/app/core/themes/common_style.dart';
 import 'package:college_app/app/core/themes/custom_colors.dart';
-import 'package:college_app/app/core/themes/layout.dart';
 import 'package:college_app/app/widgets/common_methods.dart';
 import 'package:college_app/app/widgets/screens_appBar.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +94,7 @@ class StudentsListView extends GetView<StudentsListController> {
                                   columns: controller.getColumns(),
                                 ),
                               )
-                            : const Center();
+                            : Container();
                       },
                     ),
                   ),

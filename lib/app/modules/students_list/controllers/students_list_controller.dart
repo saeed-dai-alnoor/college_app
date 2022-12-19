@@ -71,6 +71,7 @@ class StudentsListController extends GetxController {
     ];
   }
 }
+
 class StudentDataGridSource extends DataGridSource {
   StudentDataGridSource(this.data) {
     buildDataGridRow();
@@ -85,18 +86,28 @@ class StudentDataGridSource extends DataGridSource {
         Container(
           alignment: Alignment.centerRight,
           padding: const EdgeInsets.all(8.0),
-          child: Text(
-            row.getCells()[0].value.toString(),
-            overflow: TextOverflow.ellipsis,
+          child: CommonStyle.commonText(
+            label: row.getCells()[0].value,
+            size: 15,
+            color: Colors.black,
           ),
+          // child: Text(
+          //   row.getCells()[0].value,
+          //   overflow: TextOverflow.ellipsis,
+          // ),
         ),
         Container(
           alignment: Alignment.centerRight,
           padding: const EdgeInsets.all(8.0),
-          child: Text(
-            row.getCells()[1].value.toString(),
-            overflow: TextOverflow.ellipsis,
+          child: CommonStyle.commonText(
+            label: row.getCells()[1].value,
+            size: 15,
+            color: Colors.black,
           ),
+          // child: Text(
+          //   row.getCells()[1].value,
+          //   overflow: TextOverflow.ellipsis,
+          // ),
         ),
       ],
     );
