@@ -1,7 +1,5 @@
-import 'package:college_app/app/controllers/auth_controller.dart';
 import 'package:college_app/app/core/themes/custom_colors.dart';
 import 'package:college_app/app/core/lang/languages.dart';
-import 'package:college_app/app/modules/network/bindings/network_binding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

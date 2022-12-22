@@ -1,8 +1,5 @@
 // ignore_for_file: unnecessary_overrides
-import 'dart:convert' as convert;
 
-import 'package:college_app/app/core/themes/custom_colors.dart';
-import 'package:college_app/app/data/providers/user_provider.dart';
 import 'package:college_app/app/widgets/common_methods.dart';
 import 'package:college_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';

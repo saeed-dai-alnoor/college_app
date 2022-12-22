@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_overrides, invalid_use_of_protected_member
 import 'package:college_app/app/core/themes/common_style.dart';
 import 'package:college_app/app/data/models/student.dart';
-import 'package:college_app/app/data/models/student_provider.dart';
+import 'package:college_app/app/data/providers/student_provider.dart';
 import 'package:college_app/app/modules/level_type/controllers/level_type_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,19 +9,10 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class StudentsListController extends GetxController {
   final levelController = Get.find<LevelTypeController>();
-  TextEditingController searchController = TextEditingController();
   RxBool isLoad = false.obs;
   bool get isLoading => isLoad.value;
   var studentList = <Datum>[].obs;
-  fetchStudents() async {
-    isLoad.value = true;
-    // List<Datum>? students = await StudentProvider.getStudents();
-    List<Datum>? students = await StudentProvider.getStudentsByLevel();
-    if (students != null) {
-      isLoad.value = false;
-      studentList.value = students;
-    }
-  }
+  
 
   @override
   void onInit() {
@@ -38,7 +29,14 @@ class StudentsListController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
+  fetchStudents() async {
+    isLoad.value = true;
+    List<Datum>? students = await StudentProvider.getStudentsByLevel();
+    if (students != null) {
+      isLoad.value = false;
+      studentList.value = students;
+    }
+  }
   Future<StudentDataGridSource> getStudentSource() async {
     return StudentDataGridSource(studentList.value);
   }
@@ -46,7 +44,7 @@ class StudentsListController extends GetxController {
   List<GridColumn> getColumns() {
     return <GridColumn>[
       GridColumn(
-        columnName: 'ID',
+        columnName: 'id',
         width: 90.0,
         label: Container(
           padding: const EdgeInsets.all(8),
