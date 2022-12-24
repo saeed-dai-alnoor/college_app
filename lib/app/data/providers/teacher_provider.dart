@@ -1,20 +1,24 @@
-import 'package:college_app/app/data/models/subject.dart';
+import 'package:college_app/app/data/models/teacher.dart';
 import 'package:college_app/app/data/services/dio_config.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-class SubjectProvider {
-  static Future<Either<List<Datum>?, String?>> fetchSubjects(
-      {required String semesterId}) async {
+
+class TeacherProvider {
+  static Future<Either<Data?, String?>> loginTeacher({
+    required String phone,
+    required String password,
+  }) async {
     try {
       var response = await DioConfig.dioClient.post(
-        '/semesters/subjects',
+        '/teachers/login',
         data: {
-          'semester_id': semesterId,
+          'phone': phone,
+          'password': password,
         },
       );
       if (response.statusCode == 200 && response.data['success'] == 1) {
-        final result = Subject.fromJson(response.data);
+        final result = Teacher.fromJson(response.data);
         return left(result.data);
       } else {
         return right(

@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_overrides
 
+import 'package:college_app/app/core/themes/custom_colors.dart';
+import 'package:college_app/app/data/providers/teacher_provider.dart';
 import 'package:college_app/app/widgets/common_methods.dart';
 import 'package:college_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -11,14 +13,11 @@ class TeacherLoginController extends GetxController {
   late TextEditingController mobileConrtoller;
   late TextEditingController passwordConrtoller;
   late FocusNode passwordFocusNode;
-
-  RxBool isLoad = false.obs;
-  bool get isLoading => isLoad.value;
-
   var phone = '';
   var password = '';
   var obscureText = true.obs;
-
+  final RxBool _isLoading = false.obs;
+  bool get isLoading => _isLoading.value;
   final getStorage = GetStorage();
   @override
   void onInit() {
@@ -42,9 +41,7 @@ class TeacherLoginController extends GetxController {
   }
 
   var validatePhone = CommonMethods.validatePhone;
-
   var validatePassword = CommonMethods.validatePassword;
-
   void showPassword() {
     obscureText.value = !obscureText.value;
   }
@@ -53,19 +50,27 @@ class TeacherLoginController extends GetxController {
     FocusScope.of(context).requestFocus(passwordFocusNode);
   }
 
-  void checkSignIn() {
+  void checkSignIn() async {
     if (!loginFormKey.currentState!.validate()) {
       return;
     } else {
-      CommonMethods.loginApi(
-        firstApiField: 'phone',
-        secondApiField: 'password',
-        firstFlutterField: mobileConrtoller.text.trim(),
-        secondFlutterField: passwordConrtoller.text.trim(),
-        idStorage: 7,
-        urlPath: '/teachers/login',
-        isLoad: isLoad,
-        newRouteName: Routes.TEACHER_HOME,
+      _isLoading(true);
+      final result = await TeacherProvider.loginTeacher(
+        phone: mobileConrtoller.text,
+        password: passwordConrtoller.text,
+      );
+      _isLoading(false);
+      result.fold(
+        (l) {
+          getStorage.write('id', 7);
+          Get.offAllNamed(Routes.TEACHER_HOME, arguments: l!.name);
+        },
+        (r) => Get.defaultDialog(
+            title: 'error'.tr,
+            content: Text('$r'),
+            textCancel: 'try'.tr,
+            cancelTextColor: Colors.black,
+            buttonColor: CustomColors.primColor),
       );
     }
     loginFormKey.currentState!.save();

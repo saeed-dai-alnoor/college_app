@@ -33,6 +33,10 @@ Map<String, String> en = {
   "emptyNumber": "Please enter vaild number!",
   "perfectNumber": "The phone must be of 10 decimal place!",
   "validateIdMessage": "Provide Valid Id Number!",
+  "vaildPassword": "Provide Valid Password!",
+  "or": "Or",
+  "error": "Error",
+  "try": "Try Again",
   /////////////////////////////////////////////////
   // teacher_home
   "titleTeahAppBar": "Welcome, Mr. \n",

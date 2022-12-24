@@ -1,15 +1,15 @@
 // To parse this JSON data, do
 //
-//     final student = studentFromJson(jsonString);
+//     final teacher = teacherFromJson(jsonString);
 
 import 'dart:convert';
 
-Student studentFromJson(String str) => Student.fromJson(json.decode(str));
+Teacher teacherFromJson(String str) => Teacher.fromJson(json.decode(str));
 
-String studentToJson(Student data) => json.encode(data.toJson());
+String teacherToJson(Teacher data) => json.encode(data.toJson());
 
-class Student {
-  Student({
+class Teacher {
+  Teacher({
     this.success,
     this.message,
     this.data,
@@ -19,7 +19,7 @@ class Student {
   String? message;
   Data? data;
 
-  factory Student.fromJson(Map<String, dynamic> json) => Student(
+  factory Teacher.fromJson(Map<String, dynamic> json) => Teacher(
         success: json["success"],
         message: json["message"],
         data: Data.fromJson(json["data"]),
@@ -34,24 +34,24 @@ class Student {
 
 class Data {
   Data({
-    this.studentId,
+    this.teacherId,
     this.name,
-    this.levelId,
+    this.phone,
   });
 
-  int? studentId;
+  int? teacherId;
   String? name;
-  String? levelId;
+  String? phone;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        studentId: json["student_id"],
+        teacherId: json["teacher_id"],
         name: json["name"],
-        levelId: json["level_id"],
+        phone: json["phone"],
       );
 
   Map<String, dynamic> toJson() => {
-        "student_id": studentId,
+        "teacher_id": teacherId,
         "name": name,
-        "level_id": levelId,
+        "phone": phone,
       };
 }

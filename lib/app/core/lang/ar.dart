@@ -33,6 +33,10 @@ Map<String, String> ar = {
   "emptyNumber": "رجاءاً ادخل رقم صالح!",
   "perfectNumber": "يجب أن يكون الرقم من 10 خانات",
   "validateIdMessage": "الرقم الجامعي غير صالح!",
+  "vaildPassword": "كلمة المرورو غير صحيحة",
+  "or": "أو",
+  "error": "خطأ",
+  "try": "حاول مرة أخرى",
   /////////////////////////////////////////////////
   // teacher_home
   "titleTeahAppBar": "مرحباً بك دكتور \n",

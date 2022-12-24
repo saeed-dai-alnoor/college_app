@@ -2,7 +2,6 @@
 
 import 'package:college_app/app/core/themes/common_style.dart';
 import 'package:college_app/app/data/models/subject.dart';
-import 'package:college_app/app/data/providers/subject_provider.dart';
 import 'package:college_app/app/modules/level_type/controllers/level_type_controller.dart';
 import 'package:college_app/app/modules/semester_type/controllers/semester_type_controller.dart';
 import 'package:get/get.dart';
@@ -35,7 +34,7 @@ class SubjectsController extends GetxController {
 
   fetchSubjects() async {
     isLoad.value = true;
-    List<Datum>? subjects = await SubjectProvider.getSubjectsBySemester();
+    List<Datum>? subjects; // = await SubjectProvider.getSubjectsBySemester();
     if (subjects != null) {
       isLoad.value = false;
       subjectList.value = subjects;

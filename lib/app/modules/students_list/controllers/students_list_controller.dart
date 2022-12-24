@@ -1,7 +1,5 @@
-// ignore_for_file: unnecessary_overrides, invalid_use_of_protected_member
+// ignore_for_file: unnecessary_overrides, invalid_use_of_protected_member, prefer_typing_uninitialized_variables
 import 'package:college_app/app/core/themes/common_style.dart';
-import 'package:college_app/app/data/models/student.dart';
-import 'package:college_app/app/data/providers/student_provider.dart';
 import 'package:college_app/app/modules/level_type/controllers/level_type_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,8 +9,7 @@ class StudentsListController extends GetxController {
   final levelController = Get.find<LevelTypeController>();
   RxBool isLoad = false.obs;
   bool get isLoading => isLoad.value;
-  var studentList = <Datum>[].obs;
-  
+  var studentList = [].obs;
 
   @override
   void onInit() {
@@ -29,14 +26,16 @@ class StudentsListController extends GetxController {
   void onClose() {
     super.onClose();
   }
+
   fetchStudents() async {
-    isLoad.value = true;
-    List<Datum>? students = await StudentProvider.getStudentsByLevel();
-    if (students != null) {
-      isLoad.value = false;
-      studentList.value = students;
-    }
+    // isLoad.value = true;
+    // var students = await StudentProvider.getStudentsByLevel();
+    // if (students != null) {
+    //   isLoad.value = false;
+    //   studentList.value = students;
+    // }
   }
+
   Future<StudentDataGridSource> getStudentSource() async {
     return StudentDataGridSource(studentList.value);
   }
@@ -75,7 +74,7 @@ class StudentDataGridSource extends DataGridSource {
   StudentDataGridSource(this.data) {
     buildDataGridRow();
   }
-  late List<Datum>? data;
+  late var data;
   List<DataGridRow> dataGridRows = <DataGridRow>[].obs;
 
   @override

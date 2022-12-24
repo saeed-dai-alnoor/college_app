@@ -178,23 +178,23 @@ class CommonMethods {
     required String newRouteName,
   }) async {
     isLoad.value = true;
-    final getStorage = GetStorage();
     var data = {
       firstApiField: firstFlutterField,
       secondApiField: secondFlutterField,
     };
-    var response = await UserProvider.postUserData(
-        data, urlPath);
+    var response = await UserProvider.postUserData(data, urlPath);
     var jsonResponse =
         convert.jsonDecode(response.body) as Map<String, dynamic>;
     // if (_networkController.connectionStatus.value == 0) {
     //   Get.snackbar('Network Problem', 'No Internet Connection');
     // }
     if (jsonResponse['success'] == 1) {
+      final getStorage = GetStorage();
+
+      getStorage.write('level', jsonResponse['data']['level_id']);
       isLoad.value = false;
       getStorage.write('id', idStorage);
-      Get.offAllNamed(newRouteName,
-          arguments: jsonResponse['data']['name']);
+      Get.offAllNamed(newRouteName, arguments: jsonResponse['data']['name']);
     } else {
       isLoad.value = false;
       Get.defaultDialog(

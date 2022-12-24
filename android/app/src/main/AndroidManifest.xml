@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ed.collegeapp.college_app">
-   <application
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
         android:label="Collage App V3"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">

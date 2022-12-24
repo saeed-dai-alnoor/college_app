@@ -32,18 +32,26 @@ class Datum {
   Datum({
     this.subjectName,
     this.teacherName,
+    this.levelId,
+    this.semesterId,
   });
 
   String? subjectName;
   String? teacherName;
+  String? levelId;
+  int? semesterId;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         subjectName: json["subject_name"],
         teacherName: json["teacher_name"],
+        levelId: json["level_id"],
+        semesterId: json['semester_id'],
       );
 
   Map<String, dynamic> toJson() => {
         "subject_name": subjectName,
         "teacher_name": teacherName,
+        "level_id": levelId,
+        "semester_id": semesterId,
       };
 }

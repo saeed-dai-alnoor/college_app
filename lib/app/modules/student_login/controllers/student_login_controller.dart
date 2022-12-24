@@ -1,4 +1,6 @@
-// ignore_for_file: unnecessary_overrides, prefer_typing_uninitialized_variables
+// ignore_for_file: unnecessary_overrides, prefer_typing_uninitialized_variables, invalid_use_of_protected_member
+import 'package:college_app/app/core/themes/custom_colors.dart';
+import 'package:college_app/app/data/providers/student_provider.dart';
 import 'package:college_app/app/routes/app_pages.dart';
 import 'package:college_app/app/widgets/common_methods.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +12,8 @@ class StudentLoginController extends GetxController {
   late TextEditingController idConrtoller;
   late TextEditingController mobileConrtoller;
   late FocusNode phoneFocusNode;
-  
-  RxBool isLoad = false.obs;
-  bool get isLoading => isLoad.value;
-  
+  final RxBool _isLoading = false.obs;
+  bool get isLoading => _isLoading.value;
   var id = '';
   var phone = '';
   final getStorage = GetStorage();
@@ -39,9 +39,7 @@ class StudentLoginController extends GetxController {
   }
 
   var validateId = CommonMethods.validateId;
-
   var validatePhone = CommonMethods.validatePhone;
-
   void onFieldSubmitted(String value, BuildContext context) {
     FocusScope.of(context).requestFocus(phoneFocusNode);
   }
@@ -50,16 +48,24 @@ class StudentLoginController extends GetxController {
     if (!loginFormKey.currentState!.validate()) {
       return;
     } else {
-      // loginApi();
-      CommonMethods.loginApi(
-        firstApiField: 'student_id',
-        secondApiField: 'phone',
-        firstFlutterField: idConrtoller.text.trim(),
-        secondFlutterField: mobileConrtoller.text.trim(),
-        idStorage: 6,
-        urlPath: '/students/login',
-        isLoad: isLoad,
-        newRouteName: Routes.STUDENT_HOME,
+      _isLoading(true);
+      final result = await StudentProvider.loginStudent(
+        studentId: idConrtoller.text,
+        phone: mobileConrtoller.text,
+      );     
+      _isLoading(false);
+      result.fold(
+        (l) {
+          getStorage.write('id', 6);
+          getStorage.write('level', l!.levelId);
+          Get.offAllNamed(Routes.STUDENT_HOME, arguments: l.name);
+        },
+        (r) => Get.defaultDialog(
+            title: 'error'.tr,
+            content: Text('$r'),
+            textCancel: 'try'.tr,
+            cancelTextColor: Colors.black,
+            buttonColor: CustomColors.primColor),
       );
     }
     loginFormKey.currentState!.save();
