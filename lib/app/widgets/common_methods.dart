@@ -1,13 +1,10 @@
 import 'package:college_app/app/core/themes/custom_colors.dart';
-import 'package:college_app/app/data/providers/user_provider.dart';
 import 'package:college_app/app/modules/languages_type/views/languages_type_view.dart';
 import 'package:college_app/app/modules/level_type/views/level_type_view.dart';
 import 'package:college_app/app/modules/semester_type/views/semester_type_view.dart';
 import 'package:college_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'dart:convert' as convert;
 
 class CommonMethods {
   static void levelCustomDailog({required bool studentsList}) {
@@ -165,46 +162,5 @@ class CommonMethods {
       return 'validateIdMessage'.tr;
     }
     return null;
-  }
-
-  static loginApi({
-    required String firstApiField,
-    required String secondApiField,
-    required String firstFlutterField,
-    required String secondFlutterField,
-    required int idStorage,
-    required String urlPath,
-    required RxBool isLoad,
-    required String newRouteName,
-  }) async {
-    isLoad.value = true;
-    var data = {
-      firstApiField: firstFlutterField,
-      secondApiField: secondFlutterField,
-    };
-    var response = await UserProvider.postUserData(data, urlPath);
-    var jsonResponse =
-        convert.jsonDecode(response.body) as Map<String, dynamic>;
-    // if (_networkController.connectionStatus.value == 0) {
-    //   Get.snackbar('Network Problem', 'No Internet Connection');
-    // }
-    if (jsonResponse['success'] == 1) {
-      final getStorage = GetStorage();
-
-      getStorage.write('level', jsonResponse['data']['level_id']);
-      isLoad.value = false;
-      getStorage.write('id', idStorage);
-      Get.offAllNamed(newRouteName, arguments: jsonResponse['data']['name']);
-    } else {
-      isLoad.value = false;
-      Get.defaultDialog(
-        title: 'Error',
-        content: Text("${jsonResponse['data']}"),
-        barrierDismissible: true,
-        textCancel: 'Try Again',
-        cancelTextColor: Colors.black,
-        buttonColor: CustomColors.primColor,
-      );
-    }
   }
 }

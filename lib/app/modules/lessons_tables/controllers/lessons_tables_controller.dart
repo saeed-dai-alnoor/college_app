@@ -13,10 +13,11 @@ class LessonsTablesController extends GetxController {
   LevelTypeController levelTypeController = Get.find<LevelTypeController>();
   SemesterTypeController semesterTypeController =
       Get.find<SemesterTypeController>();
-  var subjectList = <Datum>[].obs;
+  final getStorage = GetStorage();
+  var subjectsLists = <Datum>[].obs;
+  List<PlutoColumn> columns = [];
   List<PlutoRow> rows = [];
   var levelName = ''.obs;
-  final getStorage = GetStorage();
   var semesterId = ''.obs;
 
   @override
@@ -34,6 +35,7 @@ class LessonsTablesController extends GetxController {
     } else {
       levelName.value = 'الفرقة اﻷولى';
     }
+    getColumns();
     getRows();
   }
 
@@ -48,10 +50,6 @@ class LessonsTablesController extends GetxController {
   }
 
   Future<List<Datum>?> fetchSubjects() async {
-    SemesterTypeController semesterTypeController =
-        Get.find<SemesterTypeController>();
-    LevelTypeController levelTypeController = Get.find<LevelTypeController>();
-
     String semesterName = semesterTypeController.defaultSemester.value;
     String levelName = levelTypeController.defaultLevel.value;
 
@@ -105,85 +103,87 @@ class LessonsTablesController extends GetxController {
     }
     final result =
         await SubjectProvider.fetchSubjects(semesterId: semesterId.value);
-    result.fold((l) => subjectList.value = l!, (r) => null);
+    result.fold((l) => subjectsLists.value = l!, (r) => null);
 
-    return subjectList.value;
+    return subjectsLists.value;
   }
 
-  List<PlutoColumn> columns = <PlutoColumn>[
-    PlutoColumn(
-      readOnly: true,
-      backgroundColor: CustomColors.primColor,
-      enableContextMenu: false,
-      enableColumnDrag: false,
-      enableDropToResize: false,
-      enableHideColumnMenuItem: false,
-      width: 80.0,
-      title: 'days'.tr,
-      field: 'days',
-      type: PlutoColumnType.text(),
-    ),
-    PlutoColumn(
-      readOnly: true,
-      backgroundColor: CustomColors.primColor,
-      enableContextMenu: false,
-      enableColumnDrag: false,
-      enableDropToResize: false,
-      enableHideColumnMenuItem: false,
-      width: 120.0,
-      title: 'lesson1'.tr,
-      field: 'lesson1',
-      type: PlutoColumnType.text(),
-    ),
-    PlutoColumn(
-      readOnly: true,
-      backgroundColor: CustomColors.primColor,
-      enableContextMenu: false,
-      enableColumnDrag: false,
-      enableDropToResize: false,
-      enableHideColumnMenuItem: false,
-      width: 120.0,
-      title: 'lesson2'.tr,
-      field: 'lesson2',
-      type: PlutoColumnType.text(),
-    ),
-    PlutoColumn(
-      readOnly: true,
-      backgroundColor: CustomColors.primColor,
-      enableContextMenu: false,
-      enableColumnDrag: false,
-      enableDropToResize: false,
-      enableHideColumnMenuItem: false,
-      width: 120.0,
-      title: 'lesson3'.tr,
-      field: 'lesson3',
-      type: PlutoColumnType.text(),
-    ),
-    PlutoColumn(
-      readOnly: true,
-      backgroundColor: CustomColors.primColor,
-      enableContextMenu: false,
-      enableColumnDrag: false,
-      enableDropToResize: false,
-      enableHideColumnMenuItem: false,
-      width: 120.0,
-      title: 'lesson4'.tr,
-      field: 'lesson4',
-      type: PlutoColumnType.text(),
-    ),
-    PlutoColumn(
-      readOnly: true,
-      backgroundColor: CustomColors.primColor,
-      enableContextMenu: false,
-      enableColumnDrag: false,
-      enableDropToResize: false,
-      enableHideColumnMenuItem: false,
-      width: 120.0,
-      title: 'lesson5'.tr,
-      field: 'lesson5',
-      type: PlutoColumnType.text(),
-    ),
-  ];
+  void getColumns() {
+    columns = <PlutoColumn>[
+      PlutoColumn(
+        readOnly: true,
+        backgroundColor: CustomColors.primColor,
+        enableContextMenu: false,
+        enableColumnDrag: false,
+        enableDropToResize: false,
+        enableHideColumnMenuItem: false,
+        width: 80.0,
+        title: 'days'.tr,
+        field: 'days',
+        type: PlutoColumnType.text(),
+      ),
+      PlutoColumn(
+        readOnly: true,
+        backgroundColor: CustomColors.primColor,
+        enableContextMenu: false,
+        enableColumnDrag: false,
+        enableDropToResize: false,
+        enableHideColumnMenuItem: false,
+        width: 120.0,
+        title: 'lesson1'.tr,
+        field: 'lesson1',
+        type: PlutoColumnType.text(),
+      ),
+      PlutoColumn(
+        readOnly: true,
+        backgroundColor: CustomColors.primColor,
+        enableContextMenu: false,
+        enableColumnDrag: false,
+        enableDropToResize: false,
+        enableHideColumnMenuItem: false,
+        width: 120.0,
+        title: 'lesson2'.tr,
+        field: 'lesson2',
+        type: PlutoColumnType.text(),
+      ),
+      PlutoColumn(
+        readOnly: true,
+        backgroundColor: CustomColors.primColor,
+        enableContextMenu: false,
+        enableColumnDrag: false,
+        enableDropToResize: false,
+        enableHideColumnMenuItem: false,
+        width: 120.0,
+        title: 'lesson3'.tr,
+        field: 'lesson3',
+        type: PlutoColumnType.text(),
+      ),
+      PlutoColumn(
+        readOnly: true,
+        backgroundColor: CustomColors.primColor,
+        enableContextMenu: false,
+        enableColumnDrag: false,
+        enableDropToResize: false,
+        enableHideColumnMenuItem: false,
+        width: 120.0,
+        title: 'lesson4'.tr,
+        field: 'lesson4',
+        type: PlutoColumnType.text(),
+      ),
+      PlutoColumn(
+        readOnly: true,
+        backgroundColor: CustomColors.primColor,
+        enableContextMenu: false,
+        enableColumnDrag: false,
+        enableDropToResize: false,
+        enableHideColumnMenuItem: false,
+        width: 120.0,
+        title: 'lesson5'.tr,
+        field: 'lesson5',
+        type: PlutoColumnType.text(),
+      ),
+    ];
+  }
 
   void getRows() async {
     await fetchSubjects();
@@ -193,9 +193,9 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'sat'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[0].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[1].subjectName),
-              'lesson3': PlutoCell(value: subjectList.value[2].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[0].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[1].subjectName),
+              'lesson3': PlutoCell(value: subjectsLists.value[2].subjectName),
               'lesson4': PlutoCell(value: ''),
               'lesson5': PlutoCell(value: ''),
             },
@@ -203,8 +203,8 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'sun'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[3].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[4].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[3].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[4].subjectName),
               'lesson3': PlutoCell(value: ''),
               'lesson4': PlutoCell(value: ''),
               'lesson5': PlutoCell(value: ''),
@@ -245,8 +245,8 @@ class LessonsTablesController extends GetxController {
               'days': PlutoCell(value: 'thr'.tr),
               'lesson1': PlutoCell(value: ''),
               'lesson2': PlutoCell(value: ''),
-              'lesson3': PlutoCell(value: subjectList.value[6].subjectName),
-              'lesson4': PlutoCell(value: subjectList.value[5].subjectName),
+              'lesson3': PlutoCell(value: subjectsLists.value[6].subjectName),
+              'lesson4': PlutoCell(value: subjectsLists.value[5].subjectName),
               'lesson5': PlutoCell(value: ''),
             },
           ),
@@ -267,8 +267,8 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'sun'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[3].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[4].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[3].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[4].subjectName),
               'lesson3': PlutoCell(value: ''),
               'lesson4': PlutoCell(value: ''),
               'lesson5': PlutoCell(value: ''),
@@ -278,9 +278,9 @@ class LessonsTablesController extends GetxController {
             cells: {
               'days': PlutoCell(value: 'mon'.tr),
               'lesson1': PlutoCell(value: ''),
-              'lesson2': PlutoCell(value: subjectList.value[7].subjectName),
-              'lesson3': PlutoCell(value: subjectList.value[6].subjectName),
-              'lesson4': PlutoCell(value: subjectList.value[5].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[7].subjectName),
+              'lesson3': PlutoCell(value: subjectsLists.value[6].subjectName),
+              'lesson4': PlutoCell(value: subjectsLists.value[5].subjectName),
               'lesson5': PlutoCell(value: ''),
             },
           ),
@@ -297,9 +297,9 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'wen'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[0].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[1].subjectName),
-              'lesson3': PlutoCell(value: subjectList.value[2].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[0].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[1].subjectName),
+              'lesson3': PlutoCell(value: subjectsLists.value[2].subjectName),
               'lesson4': PlutoCell(value: ''),
               'lesson5': PlutoCell(value: ''),
             },
@@ -342,9 +342,9 @@ class LessonsTablesController extends GetxController {
             cells: {
               'days': PlutoCell(value: 'mon'.tr),
               'lesson1': PlutoCell(value: ''),
-              'lesson2': PlutoCell(value: subjectList.value[7].subjectName),
-              'lesson3': PlutoCell(value: subjectList.value[6].subjectName),
-              'lesson4': PlutoCell(value: subjectList.value[5].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[7].subjectName),
+              'lesson3': PlutoCell(value: subjectsLists.value[6].subjectName),
+              'lesson4': PlutoCell(value: subjectsLists.value[5].subjectName),
               'lesson5': PlutoCell(value: ''),
             },
           ),
@@ -361,9 +361,9 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'wen'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[0].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[1].subjectName),
-              'lesson3': PlutoCell(value: subjectList.value[2].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[0].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[1].subjectName),
+              'lesson3': PlutoCell(value: subjectsLists.value[2].subjectName),
               'lesson4': PlutoCell(value: ''),
               'lesson5': PlutoCell(value: ''),
             },
@@ -371,8 +371,8 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'thr'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[3].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[4].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[3].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[4].subjectName),
               'lesson3': PlutoCell(value: ''),
               'lesson4': PlutoCell(value: ''),
               'lesson5': PlutoCell(value: ''),
@@ -385,9 +385,9 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'sat'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[0].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[1].subjectName),
-              'lesson3': PlutoCell(value: subjectList.value[2].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[0].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[1].subjectName),
+              'lesson3': PlutoCell(value: subjectsLists.value[2].subjectName),
               'lesson4': PlutoCell(value: ''),
               'lesson5': PlutoCell(value: ''),
             },
@@ -395,8 +395,8 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'sun'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[3].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[4].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[3].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[4].subjectName),
               'lesson3': PlutoCell(value: ''),
               'lesson4': PlutoCell(value: ''),
               'lesson5': PlutoCell(value: ''),
@@ -449,9 +449,9 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'sat'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[0].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[1].subjectName),
-              'lesson3': PlutoCell(value: subjectList.value[2].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[0].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[1].subjectName),
+              'lesson3': PlutoCell(value: subjectsLists.value[2].subjectName),
               'lesson4': PlutoCell(value: ''),
               'lesson5': PlutoCell(value: ''),
             },
@@ -459,8 +459,8 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'sun'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[3].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[4].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[3].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[4].subjectName),
               'lesson3': PlutoCell(value: ''),
               'lesson4': PlutoCell(value: ''),
               'lesson5': PlutoCell(value: ''),
@@ -523,19 +523,19 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'sun'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[3].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[4].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[3].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[4].subjectName),
               'lesson3': PlutoCell(value: ''),
               'lesson4': PlutoCell(value: ''),
-              'lesson5': PlutoCell(value: subjectList.value[5].subjectName),
+              'lesson5': PlutoCell(value: subjectsLists.value[5].subjectName),
             },
           ),
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'mon'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[0].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[1].subjectName),
-              'lesson3': PlutoCell(value: subjectList.value[2].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[0].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[1].subjectName),
+              'lesson3': PlutoCell(value: subjectsLists.value[2].subjectName),
               'lesson4': PlutoCell(value: ''),
               'lesson5': PlutoCell(value: ''),
             },
@@ -557,7 +557,7 @@ class LessonsTablesController extends GetxController {
               'lesson2': PlutoCell(value: ''),
               'lesson3': PlutoCell(value: ''),
               'lesson4': PlutoCell(value: ''),
-              'lesson5': PlutoCell(value: subjectList.value[6].subjectName),
+              'lesson5': PlutoCell(value: subjectsLists.value[6].subjectName),
             },
           ),
           PlutoRow(
@@ -577,9 +577,9 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'sat'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[0].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[1].subjectName),
-              'lesson3': PlutoCell(value: subjectList.value[2].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[0].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[1].subjectName),
+              'lesson3': PlutoCell(value: subjectsLists.value[2].subjectName),
               'lesson4': PlutoCell(value: ''),
               'lesson5': PlutoCell(value: ''),
             },
@@ -627,11 +627,11 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'thr'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[3].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[4].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[3].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[4].subjectName),
               'lesson3': PlutoCell(value: ''),
               'lesson4': PlutoCell(value: ''),
-              'lesson5': PlutoCell(value: subjectList.value[5].subjectName),
+              'lesson5': PlutoCell(value: subjectsLists.value[5].subjectName),
             },
           ),
         ];
@@ -651,8 +651,8 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'sun'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[3].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[4].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[3].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[4].subjectName),
               'lesson3': PlutoCell(value: ''),
               'lesson4': PlutoCell(value: ''),
               'lesson5': PlutoCell(value: ''),
@@ -661,9 +661,9 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'mon'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[0].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[1].subjectName),
-              'lesson3': PlutoCell(value: subjectList.value[2].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[0].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[1].subjectName),
+              'lesson3': PlutoCell(value: subjectsLists.value[2].subjectName),
               'lesson4': PlutoCell(value: ''),
               'lesson5': PlutoCell(value: ''),
             },
@@ -708,7 +708,7 @@ class LessonsTablesController extends GetxController {
               'lesson1': PlutoCell(value: ''),
               'lesson2': PlutoCell(value: ''),
               'lesson3': PlutoCell(value: ''),
-              'lesson4': PlutoCell(value: subjectList.value[0].subjectName),
+              'lesson4': PlutoCell(value: subjectsLists.value[0].subjectName),
               'lesson5': PlutoCell(value: 'عملي التجارة'),
             },
           ),
@@ -727,8 +727,8 @@ class LessonsTablesController extends GetxController {
               'days': PlutoCell(value: 'mon'.tr),
               'lesson1': PlutoCell(value: 'عملي شبكات'),
               'lesson2': PlutoCell(value: 'عملي قواعد'),
-              'lesson3': PlutoCell(value: subjectList.value[3].subjectName),
-              'lesson4': PlutoCell(value: subjectList.value[1].subjectName),
+              'lesson3': PlutoCell(value: subjectsLists.value[3].subjectName),
+              'lesson4': PlutoCell(value: subjectsLists.value[1].subjectName),
               'lesson5': PlutoCell(value: ''),
             },
           ),
@@ -745,7 +745,7 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'wen'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[0].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[0].subjectName),
               'lesson2': PlutoCell(value: ''),
               'lesson3': PlutoCell(value: ''),
               'lesson4': PlutoCell(value: ''),
@@ -769,9 +769,9 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'sat'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[0].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[1].subjectName),
-              'lesson3': PlutoCell(value: subjectList.value[2].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[0].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[1].subjectName),
+              'lesson3': PlutoCell(value: subjectsLists.value[2].subjectName),
               'lesson4': PlutoCell(value: ''),
               'lesson5': PlutoCell(value: ''),
             },
@@ -779,8 +779,8 @@ class LessonsTablesController extends GetxController {
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'sun'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[3].subjectName),
-              'lesson2': PlutoCell(value: subjectList.value[4].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[3].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[4].subjectName),
               'lesson3': PlutoCell(value: ''),
               'lesson4': PlutoCell(value: ''),
               'lesson5': PlutoCell(value: ''),
@@ -790,16 +790,16 @@ class LessonsTablesController extends GetxController {
             cells: {
               'days': PlutoCell(value: 'mon'.tr),
               'lesson1': PlutoCell(value: ''),
-              'lesson2': PlutoCell(value: subjectList.value[7].subjectName),
-              'lesson3': PlutoCell(value: subjectList.value[6].subjectName),
-              'lesson4': PlutoCell(value: subjectList.value[5].subjectName),
+              'lesson2': PlutoCell(value: subjectsLists.value[7].subjectName),
+              'lesson3': PlutoCell(value: subjectsLists.value[6].subjectName),
+              'lesson4': PlutoCell(value: subjectsLists.value[5].subjectName),
               'lesson5': PlutoCell(value: ''),
             },
           ),
           PlutoRow(
             cells: {
               'days': PlutoCell(value: 'tues'.tr),
-              'lesson1': PlutoCell(value: subjectList.value[8].subjectName),
+              'lesson1': PlutoCell(value: subjectsLists.value[8].subjectName),
               'lesson2': PlutoCell(value: 'تطبيقات حاسوب'),
               'lesson3': PlutoCell(value: 'تمارين متقطعة'),
               'lesson4': PlutoCell(value: 'تمارين حسبان'),

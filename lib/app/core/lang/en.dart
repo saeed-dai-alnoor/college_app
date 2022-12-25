@@ -65,7 +65,6 @@ Map<String, String> en = {
   "level5": "Fifth Band",
   "changeBand": "Choose Band",
   "name": "Name",
-  "id": "Student ID",
   // subjects
   "chooselevAndSems": "Choose level and Semester",
   "chooseSemester": "Choose The Semester",

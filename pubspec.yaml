@@ -12,14 +12,11 @@ dependencies:
     sdk: flutter
   dots_indicator: ^2.1.0
   flutter_launcher_icons: ^0.9.3
-  syncfusion_flutter_datagrid: ^20.2.38
-  syncfusion_flutter_core: ^20.2.38
   file_picker: ^4.6.1
   get_storage: ^2.0.3
   dio: ^4.0.6
   dartz: ^0.10.1
   loading_overlay: ^0.3.0
-  http: ^0.13.5
   connectivity: ^3.0.6
   pluto_grid: ^5.4.9
 dev_dependencies: 
