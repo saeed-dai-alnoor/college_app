@@ -12,6 +12,9 @@ class TeacherDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final saveNameLocaly = GetStorage();
+    saveNameLocaly.read('name') ?? saveNameLocaly.write('name', Get.arguments);
+
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -29,12 +32,12 @@ class TeacherDrawer extends StatelessWidget {
             accountName: Container(
               margin: const EdgeInsets.only(top: 25.0),
               child: CommonStyle.commonText(
-                label: 'Elsaddig Ahamed',
+                label: '',
                 size: 17.0,
               ),
             ),
             accountEmail: CommonStyle.commonText(
-              label: 'Elsaddig@gmail.com',
+              label: saveNameLocaly.read('name'),
               size: 18.0,
             ),
             decoration: const BoxDecoration(color: CustomColors.primColor),

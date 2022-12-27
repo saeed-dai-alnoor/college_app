@@ -1,16 +1,14 @@
 import 'package:college_app/app/core/themes/common_style.dart';
 import 'package:college_app/app/core/themes/layout.dart';
+import 'package:college_app/app/modules/student_query/views/student_query_view.dart';
 import 'package:college_app/app/widgets/common_methods.dart';
 import 'package:college_app/app/widgets/gridCard.dart';
 import 'package:college_app/app/widgets/home_appBar.dart';
 import 'package:college_app/app/widgets/student_drawer.dart';
-import 'package:college_app/app/modules/calendar/views/calendar_view.dart';
 import 'package:college_app/app/modules/notifications/views/notifications_view.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
 import '../controllers/student_home_controller.dart';
 
 class StudentHomeView extends GetView<StudentHomeController> {
@@ -60,7 +58,8 @@ class StudentHomeView extends GetView<StudentHomeController> {
                     children: <Widget>[
                       CommonStyle.commonText(label: 'titleStudAppBar'),
                       CommonStyle.commonText(
-                          label: saveNameLocaly.read('name')),
+                        label: saveNameLocaly.read('name'),
+                      ),
                     ],
                   ),
                 ),
@@ -76,31 +75,33 @@ class StudentHomeView extends GetView<StudentHomeController> {
                   ),
                   children: <Widget>[
                     GridCard(
-                      image: 'lessonTable',
-                      title: 'tables',
-                      onpressed: () =>
-                          CommonMethods.semesterCustomDailog(results: false),
+                      image: 'studentSubjects',
+                      title: 'studentSubjects',
+                      onpressed: () => CommonMethods.semesterCustomDailog(
+                        studentSubjects: true,
+                      ),
                     ),
                     GridCard(
-                      image: 'results',
-                      title: 'results',
-                      onpressed: () =>
-                          CommonMethods.semesterCustomDailog(results: true),
+                      image: 'query',
+                      title: 'query',
+                      onpressed: () => Get.to(
+                        () => const StudentQueryView(),
+                        duration: const Duration(milliseconds: 700),
+                        transition: Transition.size,
+                      ),
+                    ),
+                    GridCard(
+                      image: 'lessonTable',
+                      title: 'tables',
+                      onpressed: () => CommonMethods.semesterCustomDailog(
+                        studentSubjects: false,
+                      ),
                     ),
                     GridCard(
                       image: 'notfy',
                       title: 'notfy',
                       onpressed: () => Get.to(
                         const NotificationsView(),
-                        duration: const Duration(milliseconds: 700),
-                        transition: Transition.size,
-                      ),
-                    ),
-                    GridCard(
-                      image: 'calendar',
-                      title: 'calendar',
-                      onpressed: () => Get.to(
-                        const CalendarView(),
                         duration: const Duration(milliseconds: 700),
                         transition: Transition.size,
                       ),

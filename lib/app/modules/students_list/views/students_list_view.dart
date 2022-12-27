@@ -31,7 +31,9 @@ class StudentsListView extends GetView<StudentsListController> {
                 ),
                 const SizedBox(height: 8.0),
                 CommonStyle.commonText(
-                  label: controller.levelTypeController.defaultLevel.value,
+                  label: controller.getStorage.read('level') != null
+                      ? controller.levelName.value
+                      : controller.levelTypeController.defaultLevel.value,
                   size: 18.0,
                   color: Colors.black,
                 ),

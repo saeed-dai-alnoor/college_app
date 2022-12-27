@@ -4,11 +4,14 @@ import 'package:college_app/app/data/models/students_lists.dart';
 import 'package:college_app/app/data/providers/students_lists_provider.dart';
 import 'package:college_app/app/modules/level_type/controllers/level_type_controller.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 class StudentsListController extends GetxController {
   final levelTypeController = Get.find<LevelTypeController>();
+  var levelName = ''.obs;
   var levelId = ''.obs;
+  final getStorage = GetStorage();
   var studentList = <Datum>[].obs;
   List<PlutoColumn> columns = [];
   List<PlutoRow> rows = [];
@@ -16,6 +19,18 @@ class StudentsListController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    String? levelNameStorage = getStorage.read('level');
+    if (levelNameStorage == '2') {
+      levelName.value = 'الفرقة الثانية';
+    } else if (levelNameStorage == '3') {
+      levelName.value = 'الفرقة الثالثة';
+    } else if (levelNameStorage == '4') {
+      levelName.value = 'الفرقة الرابعة';
+    } else if (levelNameStorage == '5') {
+      levelName.value = 'الفرقة الخامسة';
+    } else {
+      levelName.value = 'الفرقة اﻷولى';
+    }
     getColumns();
     getRows();
   }
@@ -31,13 +46,15 @@ class StudentsListController extends GetxController {
   }
 
   Future<List<Datum>?> fetchStudents() async {
-    if (levelTypeController.defaultLevel.value == 'level2') {
+    String levelName = levelTypeController.defaultLevel.value;
+
+    if (levelName == 'level2' || getStorage.read('level') == '2') {
       levelId.value = '2';
-    } else if (levelTypeController.defaultLevel.value == 'level3') {
+    } else if (levelName == 'level3' || getStorage.read('level') == '3') {
       levelId.value = '3';
-    } else if (levelTypeController.defaultLevel.value == 'level4') {
+    } else if (levelName == 'level4' || getStorage.read('level') == '4') {
       levelId.value = '4';
-    } else if (levelTypeController.defaultLevel.value == 'level5') {
+    } else if (levelName == 'level5' || getStorage.read('level') == '5') {
       levelId.value = '5';
     } else {
       levelId.value = '1';

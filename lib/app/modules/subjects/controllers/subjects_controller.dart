@@ -6,12 +6,15 @@ import 'package:college_app/app/data/providers/subject_provider.dart';
 import 'package:college_app/app/modules/level_type/controllers/level_type_controller.dart';
 import 'package:college_app/app/modules/semester_type/controllers/semester_type_controller.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 class SubjectsController extends GetxController {
   LevelTypeController levelTypeController = Get.find<LevelTypeController>();
   SemesterTypeController semesterTypeController =
       Get.find<SemesterTypeController>();
+  final getStorage = GetStorage();
+  var levelName = ''.obs;
   var semesterId = ''.obs;
   var subjectsLists = <Datum>[].obs;
   List<PlutoColumn> columns = [];
@@ -20,6 +23,18 @@ class SubjectsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    String? levelNameStorage = getStorage.read('level');
+    if (levelNameStorage == '2') {
+      levelName.value = 'الفرقة الثانية';
+    } else if (levelNameStorage == '3') {
+      levelName.value = 'الفرقة الثالثة';
+    } else if (levelNameStorage == '4') {
+      levelName.value = 'الفرقة الرابعة';
+    } else if (levelNameStorage == '5') {
+      levelName.value = 'الفرقة الخامسة';
+    } else {
+      levelName.value = 'الفرقة اﻷولى';
+    }
     getColumns();
     getRows();
   }
@@ -38,27 +53,77 @@ class SubjectsController extends GetxController {
     String semesterName = semesterTypeController.defaultSemester.value;
     String levelName = levelTypeController.defaultLevel.value;
 
-    if (levelName == 'level1' && semesterName == 'semester2') {
+    // if (levelName == 'level1' && semesterName == 'semester2') {
+    //   semesterId.value = '2';
+    // } else if (levelName == 'level2' && semesterName == 'semester') {
+    //   semesterId.value = '3';
+    // } else if (levelName == 'level2' && semesterName == 'semester2') {
+    //   semesterId.value = '4';
+    // } else if (levelName == 'level3' && semesterName == 'semester1') {
+    //   semesterId.value = '5';
+    // } else if (levelName == 'level3' && semesterName == 'semester2') {
+    //   semesterId.value = '6';
+    // } else if (levelName == 'level4' && semesterName == 'semester1') {
+    //   semesterId.value = '7';
+    // } else if (levelName == 'level4' && semesterName == 'semester2') {
+    //   semesterId.value = '8';
+    // } else if (levelName == 'level5' && semesterName == 'semester1') {
+    //   semesterId.value = '9';
+    // } else if (levelName == 'level5' && semesterName == 'semester2') {
+    //   semesterId.value = '10';
+    // } else {
+    //   semesterId.value = '1';
+    // }
+
+    if (getStorage.read('level') == '1' && semesterName == 'semester2' ||
+        levelName == 'level1' &&
+            semesterName == 'semester2' &&
+            getStorage.read('level') == null) {
       semesterId.value = '2';
-    } else if (levelName == 'level2' && semesterName == 'semester') {
+    } else if (getStorage.read('level') == '2' && semesterName == 'semester1' ||
+        levelName == 'level2' &&
+            semesterName == 'semester1' &&
+            getStorage.read('level') == null) {
       semesterId.value = '3';
-    } else if (levelName == 'level2' && semesterName == 'semester2') {
+    } else if (getStorage.read('level') == '2' && semesterName == 'semester2' ||
+        levelName == 'level2' &&
+            semesterName == 'semester2' &&
+            getStorage.read('level') == null) {
       semesterId.value = '4';
-    } else if (levelName == 'level3' && semesterName == 'semester1') {
+    } else if (getStorage.read('level') == '3' && semesterName == 'semester1' ||
+        levelName == 'level3' &&
+            semesterName == 'semester1' &&
+            getStorage.read('level') == null) {
       semesterId.value = '5';
-    } else if (levelName == 'level3' && semesterName == 'semester2') {
+    } else if (getStorage.read('level') == '3' && semesterName == 'semester2' ||
+        levelName == 'level3' &&
+            semesterName == 'semester2' &&
+            getStorage.read('level') == null) {
       semesterId.value = '6';
-    } else if (levelName == 'level4' && semesterName == 'semester1') {
+    } else if (getStorage.read('level') == '4' && semesterName == 'semester1' ||
+        levelName == 'level4' &&
+            semesterName == 'semester1' &&
+            getStorage.read('level') == null) {
       semesterId.value = '7';
-    } else if (levelName == 'level4' && semesterName == 'semester2') {
+    } else if (getStorage.read('level') == '4' && semesterName == 'semester2' ||
+        levelName == 'level4' &&
+            semesterName == 'semester2' &&
+            getStorage.read('level') == null) {
       semesterId.value = '8';
-    } else if (levelName == 'level5' && semesterName == 'semester1') {
+    } else if (getStorage.read('level') == '5' && semesterName == 'semester1' ||
+        levelName == 'level5' &&
+            semesterName == 'semester1' &&
+            getStorage.read('level') == null) {
       semesterId.value = '9';
-    } else if (levelName == 'level5' && semesterName == 'semester2') {
+    } else if (getStorage.read('level') == '5' && semesterName == 'semester2' ||
+        levelName == 'level5' &&
+            semesterName == 'semester2' &&
+            getStorage.read('level') == null) {
       semesterId.value = '10';
     } else {
       semesterId.value = '1';
     }
+
     final result =
         await SubjectProvider.fetchSubjects(semesterId: semesterId.value);
     result.fold((l) => subjectsLists.value = l!, (r) => null);

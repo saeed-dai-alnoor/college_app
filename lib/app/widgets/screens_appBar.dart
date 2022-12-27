@@ -9,7 +9,9 @@ import 'package:get/route_manager.dart';
 class ScreensAppBar extends StatelessWidget implements PreferredSizeWidget {
   String title;
   double height;
-  ScreensAppBar({Key? key, required this.title, this.height = 120.0})
+  bool back;
+  ScreensAppBar(
+      {Key? key, required this.title, this.height = 120.0, this.back = true})
       : super(key: key);
   @override
   Size get preferredSize => Size.fromHeight(height);
@@ -18,10 +20,12 @@ class ScreensAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      leading: IconButton(
-        onPressed: () => Get.back(),
-        icon: const Icon(Icons.arrow_back_ios_sharp),
-      ),
+      leading: back
+          ? IconButton(
+              onPressed: () => Get.back(),
+              icon: const Icon(Icons.arrow_back_ios_sharp),
+            )
+          : null,
       title: CommonStyle.commonText(
         label: title,
         size: 19.0,

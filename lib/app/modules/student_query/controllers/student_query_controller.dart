@@ -2,9 +2,7 @@
 
 import 'package:get/get.dart';
 
-class CalendarController extends GetxController {
-  // ignore: todo
-  //TODO: Implement CalendarController
+class StudentQueryController extends GetxController {
   @override
   void onInit() {
     super.onInit();

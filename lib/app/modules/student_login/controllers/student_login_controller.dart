@@ -52,12 +52,13 @@ class StudentLoginController extends GetxController {
       final result = await StudentProvider.loginStudent(
         studentId: idConrtoller.text,
         phone: mobileConrtoller.text,
-      );     
+      );
       _isLoading(false);
       result.fold(
         (l) {
           getStorage.write('id', 6);
           getStorage.write('level', l!.levelId);
+          getStorage.write('studentId', l.studentId);
           Get.offAllNamed(Routes.STUDENT_HOME, arguments: l.name);
         },
         (r) => Get.defaultDialog(

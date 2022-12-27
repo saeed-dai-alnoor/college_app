@@ -19,9 +19,7 @@ abstract class Routes {
   static const ATTENDANCE = _Paths.ATTENDANCE;
   static const ADVERTISEMENT = _Paths.ADVERTISEMENT;
   static const LANGUAGE_TYPE = _Paths.LANGUAGE_TYPE;
-  static const STUDY_RESULTS = _Paths.STUDY_RESULTS;
   static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
-  static const CALENDAR = _Paths.CALENDAR;
   static const LEVEL_TYPE = _Paths.LEVEL_TYPE;
   static const SEMESTER_TYPE = _Paths.SEMESTER_TYPE;
   static const LANGUAGES_TYPE = _Paths.LANGUAGES_TYPE;
@@ -31,6 +29,7 @@ abstract class Routes {
   static const PARENTS_LOGIN = _Paths.PARENTS_LOGIN;
   static const PARENTS_HOME = _Paths.PARENTS_HOME;
   static const NETWORK = _Paths.NETWORK;
+  static const STUDENT_QUERY = _Paths.STUDENT_QUERY;
 }
 
 abstract class _Paths {
@@ -49,9 +48,7 @@ abstract class _Paths {
   static const ATTENDANCE = '/attendance';
   static const ADVERTISEMENT = '/advertisement';
   static const LANGUAGE_TYPE = '/language-type';
-  static const STUDY_RESULTS = '/study-results';
   static const NOTIFICATIONS = '/notifications';
-  static const CALENDAR = '/calendar';
   static const LEVEL_TYPE = '/level-type';
   static const SEMESTER_TYPE = '/semester-type';
   static const LANGUAGES_TYPE = '/languages-type';
@@ -61,4 +58,5 @@ abstract class _Paths {
   static const PARENTS_LOGIN = '/parents-login';
   static const PARENTS_HOME = '/parents-home';
   static const NETWORK = '/network';
+  static const STUDENT_QUERY = '/student-query';
 }

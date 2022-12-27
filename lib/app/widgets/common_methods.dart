@@ -3,6 +3,7 @@ import 'package:college_app/app/modules/languages_type/views/languages_type_view
 import 'package:college_app/app/modules/level_type/views/level_type_view.dart';
 import 'package:college_app/app/modules/semester_type/views/semester_type_view.dart';
 import 'package:college_app/app/routes/app_pages.dart';
+import 'package:college_app/app/widgets/login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -34,7 +35,7 @@ class CommonMethods {
         cancelTextColor: CustomColors.primColor);
   }
 
-  static void semesterCustomDailog({required bool results}) {
+  static void semesterCustomDailog({required bool studentSubjects}) {
     Get.defaultDialog(
         title: 'chooseSemester'.tr,
         titleStyle: const TextStyle(
@@ -44,9 +45,9 @@ class CommonMethods {
         ),
         content: const SemesterTypeView(),
         onConfirm: () {
-          results
+          studentSubjects
               ? Get.offNamedUntil(
-                  Routes.STUDY_RESULTS,
+                  Routes.SUBJECTS,
                   ModalRoute.withName(Routes.STUDENT_HOME),
                 )
               : Get.offNamedUntil(
@@ -162,5 +163,58 @@ class CommonMethods {
       return 'validateIdMessage'.tr;
     }
     return null;
+  }
+
+  static void moneyCustomDailog() {
+    Get.defaultDialog(
+      title: 'tuitionPayments'.tr,
+      titleStyle: const TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+        fontSize: 22.0,
+      ),
+      content: Container(
+        height: 200.0,
+        width: 200,
+        margin: const EdgeInsets.symmetric(horizontal: 30.0),
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 1.5,
+            color: Colors.teal,
+          ),
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        child: Column(
+          children: <Widget>[
+            const SizedBox(height: 40.0),
+            SizedBox(
+              width: 150,
+              child: LoginButton(
+                onPressed: () {},
+                label: 'private',
+                buttonColor: const Color(0xff00BB9F),
+                textColor: Colors.white,
+              ),
+            ),
+            const SizedBox(height: 20.0),
+            SizedBox(
+              width: 150.0,
+              child: LoginButton(
+                onPressed: () {},
+                label: 'public',
+                buttonColor: const Color(0xff00BB9F),
+                textColor: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
+      onConfirm: () {},
+      buttonColor: const Color(0xff00BB9F),
+      textConfirm: 'ok'.tr,
+      confirmTextColor: Colors.white,
+      textCancel: 'cancel'.tr,
+      cancelTextColor: const Color(0xff00BB9F),
+    );
   }
 }

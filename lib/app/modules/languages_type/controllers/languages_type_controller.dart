@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_overrides
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -20,13 +22,11 @@ class LanguagesTypeController extends GetxController {
   }
 
   @override
-  // ignore: unnecessary_overrides
   void onReady() {
     super.onReady();
   }
 
   @override
-  // ignore: unnecessary_overrides
   void onClose() {
     super.onClose();
   }

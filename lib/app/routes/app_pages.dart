@@ -2,8 +2,6 @@ import 'package:get/get.dart';
 
 import '../modules/advertisement/bindings/advertisement_binding.dart';
 import '../modules/advertisement/views/advertisement_view.dart';
-import '../modules/calendar/bindings/calendar_binding.dart';
-import '../modules/calendar/views/calendar_view.dart';
 import '../modules/languages_type/bindings/languages_type_binding.dart';
 import '../modules/languages_type/views/languages_type_view.dart';
 import '../modules/lessons_tables/bindings/lessons_tables_binding.dart';
@@ -32,10 +30,10 @@ import '../modules/student_home/bindings/student_home_binding.dart';
 import '../modules/student_home/views/student_home_view.dart';
 import '../modules/student_login/bindings/student_login_binding.dart';
 import '../modules/student_login/views/student_login_view.dart';
+import '../modules/student_query/bindings/student_query_binding.dart';
+import '../modules/student_query/views/student_query_view.dart';
 import '../modules/students_list/bindings/students_list_binding.dart';
 import '../modules/students_list/views/students_list_view.dart';
-import '../modules/study_results/bindings/study_results_binding.dart';
-import '../modules/study_results/views/study_results_view.dart';
 import '../modules/subjects/bindings/subjects_binding.dart';
 import '../modules/subjects/views/subjects_view.dart';
 import '../modules/teacher_home/bindings/teacher_home_binding.dart';
@@ -110,19 +108,9 @@ class AppPages {
       binding: AdvertisementBinding(),
     ),
     GetPage(
-      name: _Paths.STUDY_RESULTS,
-      page: () => const StudyResultsView(),
-      binding: StudyResultsBinding(),
-    ),
-    GetPage(
       name: _Paths.NOTIFICATIONS,
       page: () => const NotificationsView(),
       binding: NotificationsBinding(),
-    ),
-    GetPage(
-      name: _Paths.CALENDAR,
-      page: () => const CalendarView(),
-      binding: CalendarBinding(),
     ),
     GetPage(
       name: _Paths.LEVEL_TYPE,
@@ -163,6 +151,11 @@ class AppPages {
       name: _Paths.PARENTS_HOME,
       page: () => const ParentsHomeView(),
       binding: ParentsHomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.STUDENT_QUERY,
+      page: () => const StudentQueryView(),
+      binding: StudentQueryBinding(),
     ),
   ];
 }

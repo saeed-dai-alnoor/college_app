@@ -11,6 +11,9 @@ class StudentDrawer extends StatelessWidget {
   final getStorge = GetStorage();
   @override
   Widget build(BuildContext context) {
+    final saveNameLocaly = GetStorage();
+    saveNameLocaly.read('name') ?? saveNameLocaly.write('name', Get.arguments);
+
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -27,12 +30,12 @@ class StudentDrawer extends StatelessWidget {
             accountName: Container(
               margin: const EdgeInsets.only(top: 25.0),
               child: CommonStyle.commonText(
-                label: 'Saeed Dai Alnoor',
+                label: '',
                 size: 17.0,
               ),
             ),
             accountEmail: CommonStyle.commonText(
-              label: 'saeed@gmail.com',
+              label: saveNameLocaly.read('name'),
               size: 18.0,
             ),
             decoration: const BoxDecoration(color: CustomColors.primColor),
@@ -42,26 +45,26 @@ class StudentDrawer extends StatelessWidget {
             label: 'tables',
             onpressed: () {
               Get.close(0);
-              CommonMethods.semesterCustomDailog(results: false);
+              CommonMethods.semesterCustomDailog(studentSubjects: false);
             },
           ),
           buildDrawerElement(
             icon: Icons.recent_actors_outlined,
-            label: 'results',
+            label: 'studentSubjects',
             onpressed: () {
               Get.close(0);
-              CommonMethods.semesterCustomDailog(results: true);
+              CommonMethods.semesterCustomDailog(studentSubjects: true);
             },
+          ),
+          buildDrawerElement(
+            icon: Icons.calendar_month_outlined,
+            label: 'query',
+            onpressed: () => Get.offAndToNamed(Routes.STUDENT_QUERY),
           ),
           buildDrawerElement(
             icon: Icons.notifications_active,
             label: 'notfy',
             onpressed: () => Get.offAndToNamed(Routes.NOTIFICATIONS),
-          ),
-          buildDrawerElement(
-            icon: Icons.calendar_month_outlined,
-            label: 'calendar',
-            onpressed: () => Get.offAndToNamed(Routes.CALENDAR),
           ),
           const Divider(),
           buildDrawerElement(

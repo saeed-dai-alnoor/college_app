@@ -19,6 +19,7 @@ dependencies:
   loading_overlay: ^0.3.0
   connectivity: ^3.0.6
   pluto_grid: ^5.4.9
+  font_awesome_flutter: ^9.0.0
 dev_dependencies: 
   flutter_lints: 2.0.1
   flutter_test: 
@@ -33,6 +34,7 @@ flutter:
 
   assets:
     - assets/images/png/
+    - assets/images/jpg/
   fonts:
     - family: Philosopher
       fonts:

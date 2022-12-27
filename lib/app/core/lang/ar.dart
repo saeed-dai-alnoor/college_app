@@ -49,15 +49,16 @@ Map<String, String> ar = {
   "logout": "تسجيل الخروج",
   "ok": "تم",
   // student_home
-  "titleStudAppBar": "مرحباً بك,\n",
+  "titleStudAppBar": "مرحباً بك\n",
   "collegeName":
       "جامعة امدرمان اﻹسلامية\nكلية علوم الحاسوب وتقانة المعلومات\nقسم: نظم المعلومات",
-  "results": "النتائج الدراسية",
+  "studentSubjects": "المواد الدراسية",
   "notfy": "الإشعارات",
-  "calendar": "التقويم",
+  "query": "خدمات اﻹستعلام",
   // students_list
   "chooseLevel": "إخترالفرقة",
   "cancel": "إلغاء",
+  "level": "الفرقة",
   "level1": "الفرقة الأولى",
   "level2": "الفرقة الثانية",
   "level3": "الفرقة الثالثة",
@@ -85,4 +86,8 @@ Map<String, String> ar = {
   "tues": "الثلاثاء",
   "wen": "اﻷربعاء",
   "thr": "الخميس",
+  // student_query
+  "tuitionPayments": "الرسوم الدراسية",
+  "public": "قبول عام",
+  "private": "قبول خاص",
 };

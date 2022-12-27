@@ -52,12 +52,13 @@ Map<String, String> en = {
   "titleStudAppBar": "Welcome,\n",
   "collegeName":
       "Omdurman Islamic University\nCollege of Computer Science and Information Technology\nDepartment of: Information Systems",
-  "results": "Study results",
+  "studentSubjects": "Study Subjects",
   "notfy": "Notifications",
-  "calendar": "Calendar",
+  "query": "Services Querys",
   // students_list
   "chooseLevel": "Choose The Band",
   "cancel": "Cancel",
+  "level": "The Band",
   "level1": "First Band",
   "level2": "Second Band",
   "level3": "Third Band",
@@ -85,4 +86,8 @@ Map<String, String> en = {
   "tues": "Tuesday",
   "wen": "Wednesday",
   "thr": "Thursday",
+  // student_query
+  "tuitionPayments": "Tuition Payments",
+  "public": "General Acceptance",
+  "private": "Special Acceptance",
 };
