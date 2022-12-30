@@ -31,16 +31,16 @@ class SplashController extends GetxController {
         Get.offNamed(Routes.USER_KIND);
         break;
       case 2:
-        Get.offNamed(Routes.STUDENT_LOGIN);
+        Get.offNamed(Routes.USER_KIND);
         break;
       case 3:
-        Get.offNamed(Routes.TEACHER_LOGIN);
+        Get.offNamed(Routes.USER_KIND);
         break;
       case 4:
-        Get.offNamed(Routes.MANAGEMENT_LOGIN);
+        Get.offNamed(Routes.USER_KIND);
         break;
       case 5:
-        Get.offNamed(Routes.PARENTS_LOGIN);
+        Get.offNamed(Routes.USER_KIND);
         break;
       case 6:
         Get.offNamed(Routes.STUDENT_HOME);
@@ -52,7 +52,6 @@ class SplashController extends GetxController {
         Get.offNamed(Routes.MANAGEMENT_HOME);
         break;
       case 9:
-        // Get.offNamed(Routes.PARENTS_HOME);
         Get.offNamed(Routes.USER_KIND);
         break;
 

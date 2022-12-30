@@ -13,15 +13,17 @@ class ManagementLoginView extends GetView<ManagementLoginController> {
       resizeToAvoidBottomInset: false,
       body: ListView(
         children: <Widget>[
-          SafeArea(
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 10.0),
-              width: 220.0,
-              height: 220.0,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/png/manage.png'),
-                ),
+          CommonStyle.commonText(
+            label: 'management',
+            color: Colors.black,
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 10.0),
+            width: 220.0,
+            height: 220.0,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/png/manage.png'),
               ),
             ),
           ),
@@ -31,7 +33,6 @@ class ManagementLoginView extends GetView<ManagementLoginController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const SizedBox(height: 12.0),
                 CustomTextField(
                   prefixIcon: const Icon(
                     Icons.phone,

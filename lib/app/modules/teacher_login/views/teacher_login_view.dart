@@ -1,3 +1,4 @@
+import 'package:college_app/app/core/themes/common_style.dart';
 import 'package:college_app/app/widgets/custom_textfield.dart';
 import 'package:college_app/app/widgets/login_button.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +18,16 @@ class TeacherLoginView extends GetView<TeacherLoginController> {
         isLoading: controller.isLoading,
         child: ListView(
           children: <Widget>[
+            const SizedBox(height: 10.0),
+            CommonStyle.commonText(
+              label: 'teacher',
+              color: Colors.black,
+            ),
             SafeArea(
               child: Container(
                 margin: const EdgeInsets.symmetric(vertical: 10.0),
                 width: 220.0,
-                height: 220.0,
+                height: 200.0,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/png/teachLog.png'),

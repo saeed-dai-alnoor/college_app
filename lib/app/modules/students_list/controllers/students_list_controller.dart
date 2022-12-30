@@ -8,7 +8,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 class StudentsListController extends GetxController {
-  final levelTypeController = Get.find<LevelTypeController>();
+  // final levelTypeController = Get.find<LevelTypeController>();
+  final levelTypeController =
+      Get.put<LevelTypeController>(LevelTypeController(), permanent: true);
   var levelName = ''.obs;
   var levelId = ''.obs;
   final getStorage = GetStorage();

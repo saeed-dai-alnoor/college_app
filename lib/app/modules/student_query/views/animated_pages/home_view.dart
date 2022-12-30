@@ -1,6 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:college_app/app/core/themes/common_style.dart';
+import 'package:college_app/app/modules/level_type/controllers/level_type_controller.dart';
+import 'package:college_app/app/modules/student_login/controllers/student_login_controller.dart';
 import 'package:college_app/app/modules/students_list/controllers/students_list_controller.dart';
 import 'package:college_app/app/widgets/common_methods.dart';
 import 'package:college_app/app/widgets/screens_appBar.dart';
@@ -9,7 +11,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pluto_grid/pluto_grid.dart';
-
 import 'image_slider.dart';
 import 'animated_pages.dart';
 
@@ -22,7 +23,6 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late PageController _pageController;
-  final saveNameLocaly = GetStorage();
 
   int currentIndex = 0;
   double pageValue = 0.0;
@@ -31,8 +31,12 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
+    final getStorage = GetStorage();
     StudentsListController studentsListController =
         Get.put<StudentsListController>(StudentsListController());
+    Get.put(LevelTypeController(), permanent: true);
+    final studentLoginController =
+        Get.put(StudentLoginController(), permanent: true);
     movies = [
       {
         'index': 0,
@@ -65,7 +69,9 @@ class _HomeViewState extends State<HomeView> {
                         children: <Widget>[
                           ListTile(
                             title: CommonStyle.commonText(
-                              label: saveNameLocaly.read('name'),
+                              label: getStorage.read('studentName') == null
+                                  ? '${studentLoginController.name}'
+                                  : '${getStorage.read('studentName')}',
                               color: Colors.black,
                             ),
                           ),
@@ -86,7 +92,7 @@ class _HomeViewState extends State<HomeView> {
                         children: <Widget>[
                           ListTile(
                             title: CommonStyle.commonText(
-                              label: '${saveNameLocaly.read('studentId')}',
+                              label: '${getStorage.read('studentId')}',
                               color: Colors.black,
                             ),
                           ),
@@ -222,7 +228,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final reversedMovieList = movies.reversed.toList();
-    saveNameLocaly.read('name') ?? saveNameLocaly.write('name', Get.arguments);
+
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,

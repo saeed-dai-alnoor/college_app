@@ -23,21 +23,21 @@ class UserKindController extends GetxController {
 
   void student() {
     getStorage.write('id', 2);
-    Get.offAllNamed(Routes.STUDENT_LOGIN);
+    Get.toNamed(Routes.STUDENT_LOGIN);
   }
 
   void teacher() {
     getStorage.write('id', 3);
-    Get.offAllNamed(Routes.TEACHER_LOGIN);
+    Get.toNamed(Routes.TEACHER_LOGIN);
   }
 
   void management() {
     getStorage.write('id', 4);
-    Get.offAllNamed(Routes.MANAGEMENT_LOGIN);
+    Get.toNamed(Routes.MANAGEMENT_LOGIN);
   }
 
   void parents() {
     getStorage.write('id', 5);
-    Get.offAllNamed(Routes.PARENTS_LOGIN);
+    Get.toNamed(Routes.PARENTS_LOGIN);
   }
 }

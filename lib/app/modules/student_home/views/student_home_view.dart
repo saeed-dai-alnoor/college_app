@@ -15,8 +15,8 @@ class StudentHomeView extends GetView<StudentHomeController> {
   const StudentHomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final saveNameLocaly = GetStorage();
-    saveNameLocaly.read('name') ?? saveNameLocaly.write('name', Get.arguments);
+    final getStorage = GetStorage();
+
     return Scaffold(
       drawer: StudentDrawer(),
       key: controller.scaffoldKey,
@@ -58,7 +58,9 @@ class StudentHomeView extends GetView<StudentHomeController> {
                     children: <Widget>[
                       CommonStyle.commonText(label: 'titleStudAppBar'),
                       CommonStyle.commonText(
-                        label: saveNameLocaly.read('name'),
+                        label: getStorage.read('studentName') == null
+                            ? '${Get.arguments}'
+                            : '${getStorage.read('studentName')}',
                       ),
                     ],
                   ),

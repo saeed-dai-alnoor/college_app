@@ -16,6 +16,8 @@ class StudentLoginController extends GetxController {
   bool get isLoading => _isLoading.value;
   var id = '';
   var phone = '';
+  var studentName = ''.obs;
+  String? name;
   final getStorage = GetStorage();
   @override
   void onInit() {
@@ -59,7 +61,9 @@ class StudentLoginController extends GetxController {
           getStorage.write('id', 6);
           getStorage.write('level', l!.levelId);
           getStorage.write('studentId', l.studentId);
-          Get.offAllNamed(Routes.STUDENT_HOME, arguments: l.name);
+          getStorage.write('studentName', l.name);
+          name = l.name;
+          Get.offAllNamed(Routes.STUDENT_HOME);
         },
         (r) => Get.defaultDialog(
             title: 'error'.tr,

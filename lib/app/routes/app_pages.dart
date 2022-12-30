@@ -16,8 +16,6 @@ import '../modules/notifications/bindings/notifications_binding.dart';
 import '../modules/notifications/views/notifications_view.dart';
 import '../modules/onboarding/bindings/onboarding_binding.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
-import '../modules/parents_home/bindings/parents_home_binding.dart';
-import '../modules/parents_home/views/parents_home_view.dart';
 import '../modules/parents_login/bindings/parents_login_binding.dart';
 import '../modules/parents_login/views/parents_login_view.dart';
 import '../modules/semester_type/bindings/semester_type_binding.dart';
@@ -146,11 +144,6 @@ class AppPages {
       name: _Paths.PARENTS_LOGIN,
       page: () => const ParentsLoginView(),
       binding: ParentsLoginBinding(),
-    ),
-    GetPage(
-      name: _Paths.PARENTS_HOME,
-      page: () => const ParentsHomeView(),
-      binding: ParentsHomeBinding(),
     ),
     GetPage(
       name: _Paths.STUDENT_QUERY,
