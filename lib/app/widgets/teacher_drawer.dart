@@ -37,7 +37,7 @@ class TeacherDrawer extends StatelessWidget {
               ),
             ),
             accountEmail: CommonStyle.commonText(
-              label: saveNameLocaly.read('name'),
+              label: '${saveNameLocaly.read('name')}',
               size: 18.0,
             ),
             decoration: const BoxDecoration(color: CustomColors.primColor),
@@ -47,7 +47,10 @@ class TeacherDrawer extends StatelessWidget {
             label: 'studentsList',
             onpressed: () {
               Get.close(0);
-              CommonMethods.levelCustomDailog(studentsList: true);
+              CommonMethods.levelCustomDailog(
+                studentsList: true,
+                manager: false,
+              );
             },
           ),
           buildDrawerElement(
@@ -55,7 +58,10 @@ class TeacherDrawer extends StatelessWidget {
             label: 'adver',
             onpressed: () {
               Get.close(0);
-              CommonMethods.levelCustomDailog(studentsList: false);
+              CommonMethods.levelCustomDailog(
+                studentsList: false,
+                manager: false,
+              );
             },
           ),
           buildDrawerElement(
@@ -63,7 +69,10 @@ class TeacherDrawer extends StatelessWidget {
             label: 'subjects',
             onpressed: () {
               Get.close(0);
-              CommonMethods.levelAndSemsCustomDailog(subjects: true);
+              CommonMethods.levelAndSemsCustomDailog(
+                subjects: true,
+                manager: false,
+              );
             },
           ),
           buildDrawerElement(
@@ -71,7 +80,10 @@ class TeacherDrawer extends StatelessWidget {
             label: 'tables',
             onpressed: () {
               Get.close(0);
-              CommonMethods.levelAndSemsCustomDailog(subjects: false);
+              CommonMethods.levelAndSemsCustomDailog(
+                subjects: false,
+                manager: false,
+              );
             },
           ),
           const Divider(),

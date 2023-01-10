@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_overrides
 
+import 'package:college_app/app/core/themes/custom_colors.dart';
+import 'package:college_app/app/data/providers/manager_provider.dart';
 import 'package:college_app/app/widgets/common_methods.dart';
 import 'package:college_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +12,9 @@ class ManagementLoginController extends GetxController {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   late TextEditingController mobileConrtoller;
   late TextEditingController passwordConrtoller;
-  late FocusNode phoneFocusNode;
   late FocusNode passwordFocusNode;
+  final RxBool _isLoading = false.obs;
+  bool get isLoading => _isLoading.value;
 
   var phone = '';
   var password = '';
@@ -24,7 +27,6 @@ class ManagementLoginController extends GetxController {
     super.onInit();
     mobileConrtoller = TextEditingController();
     passwordConrtoller = TextEditingController();
-    phoneFocusNode = FocusNode();
     passwordFocusNode = FocusNode();
   }
 
@@ -38,7 +40,6 @@ class ManagementLoginController extends GetxController {
     super.onClose();
     mobileConrtoller.dispose();
     passwordConrtoller.dispose();
-    phoneFocusNode.dispose();
     passwordFocusNode.dispose();
   }
 
@@ -54,12 +55,28 @@ class ManagementLoginController extends GetxController {
     FocusScope.of(context).requestFocus(passwordFocusNode);
   }
 
-  void checkSignIn() {
+  void checkSignIn() async {
     if (!loginFormKey.currentState!.validate()) {
       return;
     } else {
-      getStorage.write('id', 8);
-      Get.offAllNamed(Routes.MANAGEMENT_HOME);
+      _isLoading(true);
+      final result = await ManagerProvider.loginManager(
+        phone: mobileConrtoller.text,
+        password: passwordConrtoller.text,
+      );
+      _isLoading(false);
+      result.fold(
+        (l) {
+          getStorage.write('id', 8);
+          Get.offAllNamed(Routes.MANAGEMENT_HOME, arguments: l!.name);
+        },
+        (r) => Get.defaultDialog(
+            title: 'error'.tr,
+            content: Text('$r'),
+            textCancel: 'try'.tr,
+            cancelTextColor: Colors.black,
+            buttonColor: CustomColors.primColor),
+      );
     }
     loginFormKey.currentState!.save();
   }

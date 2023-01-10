@@ -26,8 +26,10 @@ class StudentsListView extends GetView<StudentsListController> {
                     label: 'changeBand',
                     size: 20.0,
                   ),
-                  onPressed: () =>
-                      CommonMethods.levelCustomDailog(studentsList: true),
+                  onPressed: () => CommonMethods.levelCustomDailog(
+                    studentsList: true,
+                    manager: false,
+                  ),
                 ),
                 const SizedBox(height: 8.0),
                 CommonStyle.commonText(

@@ -52,29 +52,6 @@ class SubjectsController extends GetxController {
   Future<List<Datum>?> fetchSubjects() async {
     String semesterName = semesterTypeController.defaultSemester.value;
     String levelName = levelTypeController.defaultLevel.value;
-
-    // if (levelName == 'level1' && semesterName == 'semester2') {
-    //   semesterId.value = '2';
-    // } else if (levelName == 'level2' && semesterName == 'semester') {
-    //   semesterId.value = '3';
-    // } else if (levelName == 'level2' && semesterName == 'semester2') {
-    //   semesterId.value = '4';
-    // } else if (levelName == 'level3' && semesterName == 'semester1') {
-    //   semesterId.value = '5';
-    // } else if (levelName == 'level3' && semesterName == 'semester2') {
-    //   semesterId.value = '6';
-    // } else if (levelName == 'level4' && semesterName == 'semester1') {
-    //   semesterId.value = '7';
-    // } else if (levelName == 'level4' && semesterName == 'semester2') {
-    //   semesterId.value = '8';
-    // } else if (levelName == 'level5' && semesterName == 'semester1') {
-    //   semesterId.value = '9';
-    // } else if (levelName == 'level5' && semesterName == 'semester2') {
-    //   semesterId.value = '10';
-    // } else {
-    //   semesterId.value = '1';
-    // }
-
     if (getStorage.read('level') == '1' && semesterName == 'semester2' ||
         levelName == 'level1' &&
             semesterName == 'semester2' &&

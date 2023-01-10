@@ -90,4 +90,16 @@ Map<String, String> en = {
   "tuitionPayments": "Tuition Payments",
   "public": "General Acceptance",
   "private": "Special Acceptance",
+  "result": "Student Result",
+  "pay": "Payment",
+  "studyMoney": "Tuition Sign",
+  // management_home
+  "teachersList": "Teachers List",
+  "editTeachers": "Teachers Setting",
+  "editStudents": "Students Setting",
+  "editManagers": "Managers Setting",
+  "editSubjects": "Subjects Setting",
+  "editLevels": "Levels Setting",
+  "phone": "Phone",
+  "teacherId": "Teacher Id",
 };

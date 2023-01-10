@@ -81,11 +81,12 @@ class StudentHomeView extends GetView<StudentHomeController> {
                       title: 'studentSubjects',
                       onpressed: () => CommonMethods.semesterCustomDailog(
                         studentSubjects: true,
+                        manager: false,
                       ),
                     ),
                     GridCard(
                       image: 'query',
-                      title: 'query',
+                      title: 'tuitionPayments',
                       onpressed: () => Get.to(
                         () => const StudentQueryView(),
                         duration: const Duration(milliseconds: 700),
@@ -97,6 +98,7 @@ class StudentHomeView extends GetView<StudentHomeController> {
                       title: 'tables',
                       onpressed: () => CommonMethods.semesterCustomDailog(
                         studentSubjects: false,
+                        manager: false,
                       ),
                     ),
                     GridCard(

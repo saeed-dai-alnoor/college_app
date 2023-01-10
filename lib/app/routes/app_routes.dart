@@ -30,6 +30,8 @@ abstract class Routes {
   static const PARENTS_HOME = _Paths.PARENTS_HOME;
   static const NETWORK = _Paths.NETWORK;
   static const STUDENT_QUERY = _Paths.STUDENT_QUERY;
+  static const TEACHERS_LIST = _Paths.TEACHERS_LIST;
+  static const STUDENT_SETTING = _Paths.STUDENT_SETTING;
 }
 
 abstract class _Paths {
@@ -59,4 +61,6 @@ abstract class _Paths {
   static const PARENTS_HOME = '/parents-home';
   static const NETWORK = '/network';
   static const STUDENT_QUERY = '/student-query';
+  static const TEACHERS_LIST = '/teachers-list';
+  static const STUDENT_SETTING = '/student-setting';
 }

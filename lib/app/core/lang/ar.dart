@@ -90,4 +90,16 @@ Map<String, String> ar = {
   "tuitionPayments": "الرسوم الدراسية",
   "public": "قبول عام",
   "private": "قبول خاص",
+  "result": "نتيجة الطالب",
+  "pay": "ادفع",
+  "studyMoney": "رسوم التسجيل",
+// management_home
+  "teachersList": "جدول المعلمين",
+  "editTeachers": "إعدادات المعلمين",
+  "editStudents": "إعدادات الطلاب",
+  "editManagers": "إعدادات الإدارة",
+  "editSubjects": "إعدادات المواد",
+  "editLevels": "إعدادات الفرق",
+  "phone": "الهاتف",
+  "teacherId": "الرقم التسلسلي",
 };

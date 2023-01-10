@@ -39,7 +39,6 @@ class ManagementLoginView extends GetView<ManagementLoginController> {
                   ),
                   label: 'teacherPhone',
                   controller: controller.mobileConrtoller,
-                  focusNode: controller.phoneFocusNode,
                   textInputAction: TextInputAction.next,
                   onSaved: (value) => controller.phone = value!,
                   validator: (value) => controller.validatePhone(value!),

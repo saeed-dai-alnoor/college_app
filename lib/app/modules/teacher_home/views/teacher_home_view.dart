@@ -56,7 +56,8 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                     children: <Widget>[
                       CommonStyle.commonText(label: 'titleTeahAppBar'),
                       CommonStyle.commonText(
-                          label: saveNameLocaly.read('name')),
+                        label: '${saveNameLocaly.read('name')}',
+                      ),
                     ],
                   ),
                 ),
@@ -74,26 +75,34 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                     GridCard(
                       image: 'studTable',
                       title: 'studentsList',
-                      onpressed: () =>
-                          CommonMethods.levelCustomDailog(studentsList: true),
+                      onpressed: () => CommonMethods.levelCustomDailog(
+                        studentsList: true,
+                        manager: false,
+                      ),
                     ),
                     GridCard(
                       image: 'adver',
                       title: 'adver',
-                      onpressed: () =>
-                          CommonMethods.levelCustomDailog(studentsList: false),
+                      onpressed: () => CommonMethods.levelCustomDailog(
+                        studentsList: false,
+                        manager: false,
+                      ),
                     ),
                     GridCard(
                       image: 'subjects',
                       title: 'subjects',
                       onpressed: () => CommonMethods.levelAndSemsCustomDailog(
-                          subjects: true),
+                        subjects: true,
+                        manager: false,
+                      ),
                     ),
                     GridCard(
                       image: 'lessonTable',
                       title: 'tables',
                       onpressed: () => CommonMethods.levelAndSemsCustomDailog(
-                          subjects: false),
+                        subjects: false,
+                        manager: false,
+                      ),
                     ),
                   ],
                 )

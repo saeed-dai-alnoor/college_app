@@ -30,6 +30,8 @@ import '../modules/student_login/bindings/student_login_binding.dart';
 import '../modules/student_login/views/student_login_view.dart';
 import '../modules/student_query/bindings/student_query_binding.dart';
 import '../modules/student_query/views/student_query_view.dart';
+import '../modules/student_setting/bindings/student_setting_binding.dart';
+import '../modules/student_setting/views/student_setting_view.dart';
 import '../modules/students_list/bindings/students_list_binding.dart';
 import '../modules/students_list/views/students_list_view.dart';
 import '../modules/subjects/bindings/subjects_binding.dart';
@@ -38,6 +40,8 @@ import '../modules/teacher_home/bindings/teacher_home_binding.dart';
 import '../modules/teacher_home/views/teacher_home_view.dart';
 import '../modules/teacher_login/bindings/teacher_login_binding.dart';
 import '../modules/teacher_login/views/teacher_login_view.dart';
+import '../modules/teachers_list/bindings/teachers_list_binding.dart';
+import '../modules/teachers_list/views/teachers_list_view.dart';
 import '../modules/user_kind/bindings/user_kind_binding.dart';
 import '../modules/user_kind/views/user_kind_view.dart';
 
@@ -149,6 +153,16 @@ class AppPages {
       name: _Paths.STUDENT_QUERY,
       page: () => const StudentQueryView(),
       binding: StudentQueryBinding(),
+    ),
+    GetPage(
+      name: _Paths.TEACHERS_LIST,
+      page: () => const TeachersListView(),
+      binding: TeachersListBinding(),
+    ),
+    GetPage(
+      name: _Paths.STUDENT_SETTING,
+      page: () => const StudentSettingView(),
+      binding: StudentSettingBinding(),
     ),
   ];
 }

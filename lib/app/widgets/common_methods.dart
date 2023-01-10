@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CommonMethods {
-  static void levelCustomDailog({required bool studentsList}) {
+  static void levelCustomDailog(
+      {required bool studentsList, required bool manager}) {
     Get.defaultDialog(
         title: 'chooseLevel'.tr,
         titleStyle: const TextStyle(
@@ -18,15 +19,22 @@ class CommonMethods {
         ),
         content: const LevelTypeView(),
         onConfirm: () {
-          studentsList
-              ? Get.offNamedUntil(
-                  Routes.STUDENTS_LIST,
-                  ModalRoute.withName(Routes.TEACHER_HOME),
-                )
-              : Get.offNamedUntil(
-                  Routes.ADVERTISEMENT,
-                  ModalRoute.withName(Routes.TEACHER_HOME),
-                );
+          if (manager) {
+            Get.offNamedUntil(
+              Routes.STUDENTS_LIST,
+              ModalRoute.withName(Routes.MANAGEMENT_HOME),
+            );
+          } else {
+            studentsList
+                ? Get.offNamedUntil(
+                    Routes.STUDENTS_LIST,
+                    ModalRoute.withName(Routes.TEACHER_HOME),
+                  )
+                : Get.offNamedUntil(
+                    Routes.ADVERTISEMENT,
+                    ModalRoute.withName(Routes.TEACHER_HOME),
+                  );
+          }
         },
         buttonColor: CustomColors.primColor,
         textConfirm: 'ok'.tr,
@@ -35,7 +43,8 @@ class CommonMethods {
         cancelTextColor: CustomColors.primColor);
   }
 
-  static void semesterCustomDailog({required bool studentSubjects}) {
+  static void semesterCustomDailog(
+      {required bool studentSubjects, required bool manager}) {
     Get.defaultDialog(
         title: 'chooseSemester'.tr,
         titleStyle: const TextStyle(
@@ -62,7 +71,8 @@ class CommonMethods {
         cancelTextColor: CustomColors.primColor);
   }
 
-  static void levelAndSemsCustomDailog({required bool subjects}) {
+  static void levelAndSemsCustomDailog(
+      {required bool subjects, required bool manager}) {
     Get.defaultDialog(
         title: 'chooselevAndSems'.tr,
         titleStyle: const TextStyle(
@@ -78,15 +88,27 @@ class CommonMethods {
           ],
         ),
         onConfirm: () {
-          subjects
-              ? Get.offNamedUntil(
-                  Routes.SUBJECTS,
-                  ModalRoute.withName(Routes.TEACHER_HOME),
-                )
-              : Get.offNamedUntil(
-                  Routes.LESSONS_TABLES,
-                  ModalRoute.withName(Routes.TEACHER_HOME),
-                );
+          if (manager && subjects) {
+            Get.offNamedUntil(
+              Routes.SUBJECTS,
+              ModalRoute.withName(Routes.MANAGEMENT_HOME),
+            );
+          } else if (manager && !subjects) {
+            Get.offNamedUntil(
+              Routes.LESSONS_TABLES,
+              ModalRoute.withName(Routes.MANAGEMENT_HOME),
+            );
+          } else {
+            subjects
+                ? Get.offNamedUntil(
+                    Routes.SUBJECTS,
+                    ModalRoute.withName(Routes.TEACHER_HOME),
+                  )
+                : Get.offNamedUntil(
+                    Routes.LESSONS_TABLES,
+                    ModalRoute.withName(Routes.TEACHER_HOME),
+                  );
+          }
         },
         buttonColor: CustomColors.primColor,
         textConfirm: 'ok'.tr,

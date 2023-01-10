@@ -44,7 +44,10 @@ class StudentDrawer extends StatelessWidget {
             label: 'tables',
             onpressed: () {
               Get.close(0);
-              CommonMethods.semesterCustomDailog(studentSubjects: false);
+              CommonMethods.semesterCustomDailog(
+                studentSubjects: false,
+                manager: false,
+              );
             },
           ),
           buildDrawerElement(
@@ -52,7 +55,10 @@ class StudentDrawer extends StatelessWidget {
             label: 'studentSubjects',
             onpressed: () {
               Get.close(0);
-              CommonMethods.semesterCustomDailog(studentSubjects: true);
+              CommonMethods.semesterCustomDailog(
+                studentSubjects: true,
+                manager: true,
+              );
             },
           ),
           buildDrawerElement(
