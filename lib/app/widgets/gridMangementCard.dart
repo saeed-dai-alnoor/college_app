@@ -7,19 +7,19 @@ import 'package:flutter/material.dart';
 class GridManagementCard extends StatelessWidget {
   String image;
   String title;
-  Function() onpressed;
+  Function() onPressed;
   GridManagementCard({
     Key? key,
     required this.image,
     required this.title,
-    required this.onpressed,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
       padding: const EdgeInsets.all(4.0),
-      onPressed: onpressed,
+      onPressed: onPressed,
       child: Container(
         decoration: BoxDecoration(
           color: const Color(0xffCCDEDC),

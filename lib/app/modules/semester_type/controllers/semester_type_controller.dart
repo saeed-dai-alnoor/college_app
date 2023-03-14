@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 class SemesterTypeController extends GetxController {
   var defaultSemester = 'semester1'.obs;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();

@@ -21,6 +21,9 @@ dependencies:
   pluto_grid: ^5.4.9
   font_awesome_flutter: ^9.0.0
   url_launcher: ^6.1.7
+  dropdown_button2: ^1.9.2
+  awesome_dialog: ^3.0.2
+  flutter_staggered_grid_view: ^0.6.2
 dev_dependencies:
   flutter_lints: 2.0.1
   flutter_test:

@@ -1,7 +1,6 @@
 import 'package:college_app/app/core/themes/common_style.dart';
 import 'package:college_app/app/core/themes/layout.dart';
 import 'package:college_app/app/widgets/login_button.dart';
-import 'package:college_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,7 +24,7 @@ class UserKindView extends GetView<UserKindController> {
             label: 'chooseType',
             color: Colors.indigo,
           ),
-          const SizedBox(height: 20.0),
+          const SizedBox(height: 40.0),
           Column(
             children: <Widget>[
               Padding(
@@ -60,27 +59,13 @@ class UserKindView extends GetView<UserKindController> {
                   vertical: 15.0,
                 ),
                 child: LoginButton(
-                  onPressed: () => Get.toNamed(Routes.MANAGEMENT_LOGIN),
+                  onPressed: () => controller.management(),
                   label: 'management',
                   buttonColor: const Color(0xff00BB9F),
                   textColor: Colors.white,
                 ),
               ),
             ],
-          ),
-          InkWell(
-            onTap: () => controller.parents(),
-            child: Container(
-              width: 130,
-              height: 130,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(0xff00BB9F),
-              ),
-              child: Center(
-                child: CommonStyle.commonText(label: 'parents'),
-              ),
-            ),
           ),
         ],
       ),

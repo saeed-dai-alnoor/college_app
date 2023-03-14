@@ -1,7 +1,5 @@
-// ignore_for_file: unnecessary_overrides
-
 import 'package:college_app/app/core/themes/custom_colors.dart';
-import 'package:college_app/app/data/providers/manager_provider.dart';
+import 'package:college_app/app/data/providers/teacher_provider/teacher_provider.dart';
 import 'package:college_app/app/widgets/common_methods.dart';
 import 'package:college_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -13,26 +11,21 @@ class ManagementLoginController extends GetxController {
   late TextEditingController mobileConrtoller;
   late TextEditingController passwordConrtoller;
   late FocusNode passwordFocusNode;
-  final RxBool _isLoading = false.obs;
-  bool get isLoading => _isLoading.value;
-
+  RxBool isLoading = false.obs;
   var phone = '';
   var password = '';
   var obscureText = true.obs;
-
   final getStorage = GetStorage();
 
   @override
   void onInit() {
     super.onInit();
+    CommonMethods.getConnectionType();
     mobileConrtoller = TextEditingController();
     passwordConrtoller = TextEditingController();
+    mobileConrtoller.text = '0900000000';
+    passwordConrtoller.text = '000000';
     passwordFocusNode = FocusNode();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override
@@ -44,7 +37,6 @@ class ManagementLoginController extends GetxController {
   }
 
   var validatePhone = CommonMethods.validatePhone;
-
   var validatePassword = CommonMethods.validatePassword;
 
   void showPassword() {
@@ -55,20 +47,25 @@ class ManagementLoginController extends GetxController {
     FocusScope.of(context).requestFocus(passwordFocusNode);
   }
 
-  void checkSignIn() async {
+  void login() async {
+    CommonMethods.getConnectionType();
     if (!loginFormKey.currentState!.validate()) {
       return;
+    } else if (CommonMethods.connectionType == 0) {
+      CommonMethods.showNoInternetDailog();
     } else {
-      _isLoading(true);
-      final result = await ManagerProvider.loginManager(
-        phone: mobileConrtoller.text,
-        password: passwordConrtoller.text,
+      isLoading.value = true;
+      final result = await TeacherProvider().loginTeacher(
+        phone: mobileConrtoller.text.trim(),
+        password: passwordConrtoller.text.trim(),
       );
-      _isLoading(false);
+      isLoading.value = false;
       result.fold(
         (l) {
           getStorage.write('id', 8);
-          Get.offAllNamed(Routes.MANAGEMENT_HOME, arguments: l!.name);
+          // print(getStorage.read('teacherToken'));
+          // print(l);
+          Get.offAllNamed(Routes.MANAGEMENT_HOME);
         },
         (r) => Get.defaultDialog(
             title: 'error'.tr,

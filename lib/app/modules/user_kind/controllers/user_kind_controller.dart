@@ -36,8 +36,8 @@ class UserKindController extends GetxController {
     Get.toNamed(Routes.MANAGEMENT_LOGIN);
   }
 
-  void parents() {
-    getStorage.write('id', 5);
-    Get.toNamed(Routes.PARENTS_LOGIN);
-  }
+  // void parents() {
+  //   getStorage.write('id', 5);
+  //   Get.toNamed(Routes.PARENTS_LOGIN);
+  // }
 }

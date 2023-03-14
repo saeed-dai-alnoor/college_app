@@ -32,6 +32,17 @@ abstract class Routes {
   static const STUDENT_QUERY = _Paths.STUDENT_QUERY;
   static const TEACHERS_LIST = _Paths.TEACHERS_LIST;
   static const STUDENT_SETTING = _Paths.STUDENT_SETTING;
+  static const TEACHER_SETTING = _Paths.TEACHER_SETTING;
+  static const STUDENT_ADDING = _Paths.STUDENT_ADDING;
+  static const STUDENT_DELETING = _Paths.STUDENT_DELETING;
+  static const LEVEL_DELETING = _Paths.LEVEL_DELETING;
+  static const LEVEL_UPDATING = _Paths.LEVEL_UPDATING;
+  static const LEVELS_GETTING = _Paths.LEVELS_GETTING;
+  static const LEVEL_CREATING = _Paths.LEVEL_CREATING;
+  static const TEACHERS_GETTING = _Paths.TEACHERS_GETTING;
+  static const TEACHER_CREATING = _Paths.TEACHER_CREATING;
+  static const TEACHER_UPDATING = _Paths.TEACHER_UPDATING;
+  static const TEACHER_DELETING = _Paths.TEACHER_DELETING;
 }
 
 abstract class _Paths {
@@ -63,4 +74,15 @@ abstract class _Paths {
   static const STUDENT_QUERY = '/student-query';
   static const TEACHERS_LIST = '/teachers-list';
   static const STUDENT_SETTING = '/student-setting';
+  static const TEACHER_SETTING = '/teacher-setting';
+  static const STUDENT_ADDING = '/student-adding';
+  static const STUDENT_DELETING = '/student-deleting';
+  static const LEVEL_DELETING = '/level-deleting';
+  static const LEVEL_UPDATING = '/level-updating';
+  static const LEVELS_GETTING = '/levels-getting';
+  static const LEVEL_CREATING = '/level-creating';
+  static const TEACHERS_GETTING = '/teachers-getting';
+  static const TEACHER_CREATING = '/teacher-creating';
+  static const TEACHER_UPDATING = '/teacher-updating';
+  static const TEACHER_DELETING = '/teacher-deleting';
 }

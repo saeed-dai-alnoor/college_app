@@ -2,10 +2,8 @@ import 'package:college_app/app/core/themes/common_style.dart';
 import 'package:college_app/app/widgets/custom_textfield.dart';
 import 'package:college_app/app/widgets/login_button.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:loading_overlay/loading_overlay.dart';
-
 import '../controllers/teacher_login_controller.dart';
 
 class TeacherLoginView extends GetView<TeacherLoginController> {

@@ -23,8 +23,11 @@ class HomeAppBar extends StatelessWidget {
       alignment: Alignment.topCenter,
       child: Container(
         height: 265.0,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: CustomColors.primColor,
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.elliptical(MediaQuery.of(context).size.width, 120.0),
+          ),
         ),
         child: SafeArea(
           child: ListView(

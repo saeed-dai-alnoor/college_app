@@ -33,7 +33,7 @@ class LanguagesTypeView extends GetView<LanguagesTypeController> {
               vertical: 20.0,
               horizontal: 34.0,
             ),
-            height: 165.0,
+            height: 180.0,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0),
               color: const Color(0xff00A951),

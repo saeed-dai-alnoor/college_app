@@ -12,8 +12,7 @@ class TeacherDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final saveNameLocaly = GetStorage();
-    saveNameLocaly.read('name') ?? saveNameLocaly.write('name', Get.arguments);
+    final getStorage = GetStorage();
 
     return Drawer(
       child: Column(
@@ -37,7 +36,7 @@ class TeacherDrawer extends StatelessWidget {
               ),
             ),
             accountEmail: CommonStyle.commonText(
-              label: '${saveNameLocaly.read('name')}',
+              label: '${getStorage.read('teacherName')}',
               size: 18.0,
             ),
             decoration: const BoxDecoration(color: CustomColors.primColor),

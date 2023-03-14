@@ -1,13 +1,28 @@
+import 'package:college_app/app/core/themes/common_style.dart';
 import 'package:college_app/app/core/themes/custom_colors.dart';
 import 'package:college_app/app/modules/languages_type/views/languages_type_view.dart';
+import 'package:college_app/app/modules/level_creating/controllers/level_creating_controller.dart';
+import 'package:college_app/app/modules/level_creating/views/level_creating_view.dart';
+import 'package:college_app/app/modules/level_deleting/controllers/level_deleting_controller.dart';
+import 'package:college_app/app/modules/level_deleting/views/level_deleting_view.dart';
 import 'package:college_app/app/modules/level_type/views/level_type_view.dart';
+import 'package:college_app/app/modules/level_updating/controllers/level_updating_controller.dart';
+import 'package:college_app/app/modules/level_updating/views/level_updating_view.dart';
 import 'package:college_app/app/modules/semester_type/views/semester_type_view.dart';
+import 'package:college_app/app/modules/teacher_creating/controllers/teacher_creating_controller.dart';
+import 'package:college_app/app/modules/teacher_creating/views/teacher_creating_view.dart';
+import 'package:college_app/app/modules/teacher_deleting/controllers/teacher_deleting_controller.dart';
+import 'package:college_app/app/modules/teacher_deleting/views/teacher_deleting_view.dart';
+import 'package:college_app/app/modules/teacher_updating/controllers/teacher_updating_controller.dart';
+import 'package:college_app/app/modules/teacher_updating/views/teacher_updating_view.dart';
 import 'package:college_app/app/routes/app_pages.dart';
-import 'package:college_app/app/widgets/login_button.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class CommonMethods {
+// **  For show level dialog
   static void levelCustomDailog(
       {required bool studentsList, required bool manager}) {
     Get.defaultDialog(
@@ -43,6 +58,7 @@ class CommonMethods {
         cancelTextColor: CustomColors.primColor);
   }
 
+// ** For show semester dialog
   static void semesterCustomDailog(
       {required bool studentSubjects, required bool manager}) {
     Get.defaultDialog(
@@ -71,6 +87,7 @@ class CommonMethods {
         cancelTextColor: CustomColors.primColor);
   }
 
+// ** For show level & semester dialog
   static void levelAndSemsCustomDailog(
       {required bool subjects, required bool manager}) {
     Get.defaultDialog(
@@ -117,6 +134,7 @@ class CommonMethods {
         cancelTextColor: CustomColors.primColor);
   }
 
+// ** For show language dialog
   static void languageCustomDailog() {
     Get.defaultDialog(
       title: '',
@@ -129,23 +147,25 @@ class CommonMethods {
     );
   }
 
+// ** For validate Number dialog
   static String? validatePhone(String value) {
-    // For Start the Number
+    // ** For Start the Number
     if (value.length == 1 && value[0] != '0') {
       return 'startNumber'.tr;
     }
-    // validate for Network spatialize Sudani Card
+
+    // ** validate for Network spatialize Sudani Card
     else if (value.length == 2 &&
         value[1] != '9' &&
         value.length == 2 &&
         value[1] != '1') {
       return 'secondNumber'.tr;
     }
-    // appear when field is empty
+    // ** appear when field is empty
     else if (!GetUtils.isNumericOnly(value) || value[0] != '0') {
       return 'emptyNumber'.tr;
     }
-    // validate for Zain and MTN Sudan number
+    // ** validate for Zain and MTN Sudan number
     else if (value.length == 3 &&
         value[1] == '9' &&
         value[2] != '1' &&
@@ -163,7 +183,7 @@ class CommonMethods {
         value[2] != '9') {
       return 'validatePhoneMessage'.tr;
     }
-    // For the isPhoneNumber Germanally until 8 and to 10 decimal
+    // ** For the isPhoneNumber Germanally until 8 and to 10 decimal
     else if (!GetUtils.isPhoneNumber(value) ||
         value.length == 9 ||
         value.length > 10) {
@@ -173,6 +193,7 @@ class CommonMethods {
     }
   }
 
+// ** For validate password
   static String? validatePassword(String value) {
     if (value.length < 6) {
       return 'validatePasswordMessage'.tr;
@@ -187,56 +208,166 @@ class CommonMethods {
     return null;
   }
 
-  static void moneyCustomDailog() {
+// ** methods for check kind & update  & show error of connection for level **//
+  static int connectionType = 0; // for check connection
+  // check kind connection
+  static Future<void> getConnectionType() async {
+    final Connectivity connectivity = Connectivity();
+    ConnectivityResult? connectivityResult;
+    try {
+      connectivityResult = await (connectivity.checkConnectivity());
+    } on PlatformException catch (e) {
+      Get.snackbar('Network', '${e.message}');
+    }
+    return updateState(connectivityResult!);
+  }
+
+// update connection
+  static updateState(ConnectivityResult result) {
+    switch (result) {
+      case ConnectivityResult.wifi:
+        connectionType = 1;
+        break;
+      case ConnectivityResult.mobile:
+        connectionType = 2;
+        break;
+      case ConnectivityResult.none:
+        connectionType = 0;
+        break;
+      default:
+        Get.snackbar('Network', 'Faild to get Network Status');
+    }
+  }
+
+  // show dialog when no internet
+  static void showNoInternetDailog() {
     Get.defaultDialog(
-      title: 'tuitionPayments'.tr,
-      titleStyle: const TextStyle(
-        color: Colors.black,
-        fontWeight: FontWeight.bold,
-        fontSize: 22.0,
-      ),
-      content: Container(
-        height: 200.0,
-        width: 200,
-        margin: const EdgeInsets.symmetric(horizontal: 30.0),
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 1.5,
-            color: Colors.teal,
-          ),
-          borderRadius: BorderRadius.circular(20.0),
+        title: 'error'.tr,
+        content: CommonStyle.commonText(
+          label: 'messageForInternet',
+          color: Colors.black,
+          size: 16.0,
         ),
-        child: Column(
-          children: <Widget>[
-            const SizedBox(height: 40.0),
-            SizedBox(
-              width: 150,
-              child: LoginButton(
-                onPressed: () {},
-                label: 'private',
-                buttonColor: const Color(0xff00BB9F),
-                textColor: Colors.white,
-              ),
-            ),
-            const SizedBox(height: 20.0),
-            SizedBox(
-              width: 150.0,
-              child: LoginButton(
-                onPressed: () {},
-                label: 'public',
-                buttonColor: const Color(0xff00BB9F),
-                textColor: Colors.white,
-              ),
-            ),
-          ],
+        textCancel: 'try'.tr,
+        cancelTextColor: Colors.black,
+        buttonColor: CustomColors.primColor);
+  }
+
+// ** method for create new level
+  static void createLevel(BuildContext context) {
+    final levelcreatingController = Get.find<LevelCreatingController>();
+    Get.defaultDialog(
+        title: 'addLevel'.tr,
+        titleStyle: const TextStyle(
+          color: CustomColors.primColor,
+          fontWeight: FontWeight.bold,
+          fontSize: 22.0,
         ),
-      ),
-      onConfirm: () {},
-      buttonColor: const Color(0xff00BB9F),
-      textConfirm: 'ok'.tr,
-      confirmTextColor: Colors.white,
-      textCancel: 'cancel'.tr,
-      cancelTextColor: const Color(0xff00BB9F),
-    );
+        content: const LevelCreatingView(),
+        onConfirm: () => levelcreatingController.checkLevelCreating(context),
+        buttonColor: CustomColors.primColor,
+        textConfirm: 'ok'.tr,
+        confirmTextColor: Colors.white,
+        textCancel: 'cancel'.tr,
+        cancelTextColor: CustomColors.primColor);
+  }
+
+  // ** method for delete level
+  static void deleteLevel(BuildContext context) {
+    final levelAddingController = Get.find<LevelDeletingController>();
+    Get.defaultDialog(
+        title: 'deleteLevel'.tr,
+        titleStyle: const TextStyle(
+          color: CustomColors.primColor,
+          fontWeight: FontWeight.bold,
+          fontSize: 22.0,
+        ),
+        content: const LevelDeletingView(),
+        onConfirm: () => levelAddingController.checkLevelDeleting(context),
+        buttonColor: CustomColors.primColor,
+        textConfirm: 'ok'.tr,
+        confirmTextColor: Colors.white,
+        textCancel: 'cancel'.tr,
+        cancelTextColor: CustomColors.primColor);
+  }
+
+  // ** method for update level
+  static void updateLevel(BuildContext context) {
+    final levelUpdatingController = Get.find<LevelUpdatingController>();
+    Get.defaultDialog(
+        title: 'updateLevel'.tr,
+        titleStyle: const TextStyle(
+          color: CustomColors.primColor,
+          fontWeight: FontWeight.bold,
+          fontSize: 22.0,
+        ),
+        content: const LevelUpdatingView(),
+        onConfirm: () => levelUpdatingController.checkLevelUpdating(context),
+        buttonColor: CustomColors.primColor,
+        textConfirm: 'ok'.tr,
+        confirmTextColor: Colors.white,
+        textCancel: 'cancel'.tr,
+        cancelTextColor: CustomColors.primColor);
+  }
+
+  // ** methods for creating &  update & deleting for teacher **//
+  // create new teacher
+  static void createTeacher(BuildContext context) {
+    final teacherUpdatingController = Get.find<TeacherCreatingController>();
+    Get.defaultDialog(
+        title: 'addTeacher'.tr,
+        titleStyle: const TextStyle(
+          color: CustomColors.primColor,
+          fontWeight: FontWeight.bold,
+          fontSize: 22.0,
+        ),
+        content: const TeacherCreatingView(),
+        onConfirm: () =>
+            teacherUpdatingController.checkTeacherCreating(context),
+        buttonColor: CustomColors.primColor,
+        textConfirm: 'ok'.tr,
+        confirmTextColor: Colors.white,
+        textCancel: 'cancel'.tr,
+        cancelTextColor: CustomColors.primColor);
+  }
+
+  // create new teacher
+  static void updateTeacher(BuildContext context) {
+    final teacherUpdatingController = Get.find<TeacherUpdatingController>();
+    Get.defaultDialog(
+        title: 'updateTeacher'.tr,
+        titleStyle: const TextStyle(
+          color: CustomColors.primColor,
+          fontWeight: FontWeight.bold,
+          fontSize: 22.0,
+        ),
+        content: const TeacherUpdatingView(),
+        onConfirm: () =>
+            teacherUpdatingController.checkTeacherUpdating(context),
+        buttonColor: CustomColors.primColor,
+        textConfirm: 'ok'.tr,
+        confirmTextColor: Colors.white,
+        textCancel: 'cancel'.tr,
+        cancelTextColor: CustomColors.primColor);
+  }
+
+  // delete teacher
+  static void deleteTeacher(BuildContext context) {
+    final teacherDeletingController = Get.find<TeacherDeletingController>();
+    Get.defaultDialog(
+        title: 'deleteTeacher'.tr,
+        titleStyle: const TextStyle(
+          color: CustomColors.primColor,
+          fontWeight: FontWeight.bold,
+          fontSize: 22.0,
+        ),
+        content: const TeacherDeletingView(),
+        onConfirm: () =>
+            teacherDeletingController.checkTeacherDeleting(context),
+        buttonColor: CustomColors.primColor,
+        textConfirm: 'ok'.tr,
+        confirmTextColor: Colors.white,
+        textCancel: 'cancel'.tr,
+        cancelTextColor: CustomColors.primColor);
   }
 }

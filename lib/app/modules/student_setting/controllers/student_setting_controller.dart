@@ -3,9 +3,6 @@
 import 'package:get/get.dart';
 
 class StudentSettingController extends GetxController {
-  
-
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -20,6 +17,4 @@ class StudentSettingController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
